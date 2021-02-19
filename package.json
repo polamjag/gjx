@@ -14,6 +14,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.2",
+    "recoil": "^0.1.2",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
@@ -42,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@types/recoil": "^0.0.1",
     "firebase-tools": "^9.4.0"
   }
 }
