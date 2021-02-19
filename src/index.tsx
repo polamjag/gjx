@@ -3,10 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import firebase from "firebase";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB2jJu7vUNztDiVbaDTvjKAFjRZQzDCDfo",
+  authDomain: "gjxgjx-35640.firebaseapp.com",
+  databaseURL: "https://gjxgjx-35640-default-rtdb.firebaseio.com",
+  projectId: "gjxgjx-35640",
+  storageBucket: "gjxgjx-35640.appspot.com",
+  messagingSenderId: "192829888990",
+  appId: "1:192829888990:web:75b160ac76dae99555654f",
+};
+
+const fb = firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App firebase={fb} />
   </React.StrictMode>,
   document.getElementById('root')
 );

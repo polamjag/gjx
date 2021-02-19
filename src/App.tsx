@@ -1,35 +1,40 @@
-import React from "react";
-import firebase from "firebase";
+import React, { useContext } from "react";
 import "./App.css";
+import type firebase from "firebase";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB2jJu7vUNztDiVbaDTvjKAFjRZQzDCDfo",
-  authDomain: "gjxgjx-35640.firebaseapp.com",
-  databaseURL: "https://gjxgjx-35640-default-rtdb.firebaseio.com",
-  projectId: "gjxgjx-35640",
-  storageBucket: "gjxgjx-35640.appspot.com",
-  messagingSenderId: "192829888990",
-  appId: "1:192829888990:web:75b160ac76dae99555654f",
+const FirebaseContext = React.createContext<
+  ReturnType<typeof firebase.initializeApp> | undefined
+>(undefined);
+
+const App: React.FC<{
+  firebase: ReturnType<typeof firebase.initializeApp>;
+}> = ({ firebase }) => {
+  return (
+    <div className="App">
+      <FirebaseContext.Provider value={firebase}>
+        <SyncedInput />
+      </FirebaseContext.Provider>
+    </div>
+  );
 };
 
-const fb = firebase.initializeApp(firebaseConfig);
-const database = fb.database();
-
-function App() {
+const SyncedInput: React.FC<{}> = () => {
+  const a = useContext(FirebaseContext);
   const [gomi, setGomi] = React.useState<string>("");
+
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setGomi(ev.target.value);
 
-    database.ref("gomi/").set({
-      contents: ev.target.value,
-    });
+    a?.database()
+      .ref("gomi/sessions/fuga")
+      .set({
+        images: ["https://example.com", "https://example.org"],
+        activeLayerIndex: 0,
+        overlay: "https://hoge.example",
+      });
   };
 
-  return (
-    <div className="App">
-      <input value={gomi} onChange={handleChange} autoCorrect='off' />
-    </div>
-  );
-}
+  return <input value={gomi} onChange={handleChange} autoCorrect="off" />;
+};
 
 export default App;
