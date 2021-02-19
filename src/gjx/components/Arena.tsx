@@ -7,34 +7,8 @@ export const Arena: React.FC<{}> = () => {
   const image = useRecoilValue(selectedImageState);
 
   if (!image) {
-    return (
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          position: "absolute",
-          zIndex: -1,
-          top: 0,
-          left: 0,
-          background: "black",
-        }}
-      ></div>
-    );
+    return <div className="arena--content"></div>;
   }
 
-  return (
-    <img
-      style={{
-        width: "100vw",
-        height: "100vh",
-        position: "absolute",
-        zIndex: -1,
-        top: 0,
-        left: 0,
-        objectFit: "cover",
-      }}
-      src={image}
-      alt=""
-    />
-  );
+  return <img className="arena--content" src={image} alt="" />;
 };

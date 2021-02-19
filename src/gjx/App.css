@@ -1,5 +1,6 @@
 .controllers {
   margin: 16px;
+  user-select: none;
 }
 
 .images-list {
@@ -16,4 +17,18 @@
 .add-image-form {
 }
 .add-image-form input {
+}
+
+.arena--content {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  background: black;
+
+  user-select: none;
+  pointer-events: none;
 }
