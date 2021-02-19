@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { imagesState } from "../atoms";
+import { imagesState, switchingStrategyState } from "../atoms";
 
 export const Arena: React.FC<{}> = () => {
   const images = useRecoilValue(imagesState);
+  const switchingStrategy = useRecoilValue(switchingStrategyState);
   const [image, setImage] = useState<string>();
 
   const imageArr = Object.entries(images);
@@ -11,11 +12,11 @@ export const Arena: React.FC<{}> = () => {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setImage(imageArr[Math.floor(Math.random() * imageArr.length)][1]);
-    }, 500);
+    }, switchingStrategy.state.intervalMs);
     return () => {
       window.clearInterval(timer);
     };
-  }, [imageArr]);
+  }, [imageArr, switchingStrategy.state.intervalMs]);
 
   return (
     <img

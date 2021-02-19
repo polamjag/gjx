@@ -26,7 +26,7 @@ export const AddImageForm: React.FC<{}> = () => {
 
   return (
     <div className="add-image-form">
-      <input type="text" value={imageUrl} onChange={handleChange} />
+      <input type="text" value={imageUrl} onChange={handleChange} placeholder="https://example.com/anime.gif" maxLength={1024} />
       <button onClick={add} disabled={!imageUrl}>
         Add
       </button>

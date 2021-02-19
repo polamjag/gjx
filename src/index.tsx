@@ -18,7 +18,6 @@ const firebaseConfig = {
 (async () => {
   const fb = firebase.initializeApp(firebaseConfig);
   const a = await fb.database().ref("sessions/").get();
-  console.log('initial', a);
 
   ReactDOM.render(
     <React.StrictMode>
