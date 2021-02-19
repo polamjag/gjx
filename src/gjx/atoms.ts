@@ -1,22 +1,35 @@
 import { atom } from "recoil";
-import { SwitchingStrategies } from "./types";
+import { SwitchingStrategies, SwitchingStrategyName } from "./types";
 
 export const imagesState = atom<{ [key: string]: string }>({
   default: {},
-  key: 'images',
+  key: "images",
 });
 
 export const selectedImageState = atom<string | undefined>({
   default: undefined,
-  key: 'selectedImage',
-})
+  key: "selectedImage",
+});
+
+export const activeSwitchingStrategyNameState = atom<SwitchingStrategyName>({
+  default: "intervalSwitching",
+  key: "activeSwitchingStrategy",
+});
 
 export const switchingStrategyState = atom<SwitchingStrategies>({
   default: {
-    name: 'intervalSwitching',
-    state: {
-      intervalMs: 500,
+    intervalSwitching: {
+      name: "intervalSwitching",
+      state: {
+        intervalMs: 500,
+      },
+    },
+    manualSwitching: {
+      name: "manualSwitching",
+      state: {
+        index: 0,
+      },
     },
   },
-  key: 'switchingStrategy',
-})
+  key: "switchingStrategy",
+});

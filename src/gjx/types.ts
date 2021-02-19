@@ -1,13 +1,24 @@
+export type SwitchingStrategyName = 'intervalSwitching' | 'manualSwitching';
 interface SwitchingStrategy {
-  name: string;
+  name: SwitchingStrategyName;
   state: {};
 }
 
-interface IntervalSwitchingStrategy extends SwitchingStrategy {
-  name: 'intervalSwitching';
+export interface IntervalSwitchingStrategy extends SwitchingStrategy {
+  name: "intervalSwitching";
   state: {
     intervalMs: number;
   };
 }
 
-export type SwitchingStrategies = IntervalSwitchingStrategy;
+export interface ManualSwitchingStrategy extends SwitchingStrategy {
+  name: "manualSwitching";
+  state: {
+    index: number;
+  };
+}
+
+export interface SwitchingStrategies {
+  intervalSwitching: IntervalSwitchingStrategy;
+  manualSwitching: ManualSwitchingStrategy;
+}

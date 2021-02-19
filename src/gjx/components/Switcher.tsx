@@ -1,14 +1,24 @@
-import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-import { imagesState, selectedImageState, switchingStrategyState } from '../atoms';
+import {
+  activeSwitchingStrategyNameState,
+  imagesState,
+  selectedImageState,
+  switchingStrategyState,
+} from "../atoms";
+import { SwitchingStrategies } from "../types";
 
 export const Switcher: React.FC<{}> = () => {
-  const switchingStrategy = useRecoilValue(switchingStrategyState);
+  const switchingStrategyName = useRecoilValue(
+    activeSwitchingStrategyNameState
+  );
 
-  switch (switchingStrategy.name) {
+  switch (switchingStrategyName) {
     case "intervalSwitching":
       return <IntervalSwitcher />;
+    case "manualSwitching":
+      return <></>;
   }
 };
 
@@ -22,11 +32,14 @@ const IntervalSwitcher: React.FC<{}> = () => {
   const onChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    setSwitchingStrategy((oldState) => {
-      const newState = {
+    setSwitchingStrategy((oldState: SwitchingStrategies) => {
+      const newState: SwitchingStrategies = {
         ...oldState,
-        state: {
-          intervalMs: Number(value),
+        intervalSwitching: {
+          name: 'intervalSwitching',
+          state: {
+            intervalMs: Number(value),
+          },
         },
       };
       return newState;
@@ -37,24 +50,30 @@ const IntervalSwitcher: React.FC<{}> = () => {
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setSelectedImage(imageArr[Math.floor(Math.random() * imageArr.length)][1]);
-    }, switchingStrategy.state.intervalMs);
+      setSelectedImage(
+        imageArr[Math.floor(Math.random() * imageArr.length)][1]
+      );
+    }, switchingStrategy.intervalSwitching.state.intervalMs);
     return () => {
       window.clearInterval(timer);
     };
-  }, [imageArr, switchingStrategy.state.intervalMs, setSelectedImage]);
+  }, [
+    imageArr,
+    switchingStrategy.intervalSwitching.state.intervalMs,
+    setSelectedImage,
+  ]);
 
   return (
     <div className="switcher switcher__interval">
       <div>Interval Random Switcher</div>
       <input
         type="range"
-        value={switchingStrategy.state.intervalMs}
+        value={switchingStrategy.intervalSwitching.state.intervalMs}
         max={2000}
         min={30}
         onChange={onChange}
       />
-      {switchingStrategy.state.intervalMs}ms
+      {switchingStrategy.intervalSwitching.state.intervalMs}ms
     </div>
   );
 };
