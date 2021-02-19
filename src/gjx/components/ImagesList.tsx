@@ -7,7 +7,7 @@ export const ImagesList: React.FC<{}> = () => {
 
   return (
     <>
-      <ul>
+      <ul className="images-list">
         {Object.entries(images).map(([id, image]) => (
           <li key={id}>
             <img src={image} alt="" />

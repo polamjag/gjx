@@ -25,8 +25,11 @@ const App: React.FC<{
           }}
         >
           <RealtimeSynchronizer />
-          <ImagesList />
-          <AddImageForm />
+
+          <div className="controllers">
+            <ImagesList />
+            <AddImageForm />
+          </div>
 
           <Arena />
         </RecoilRoot>

@@ -25,12 +25,12 @@ export const AddImageForm: React.FC<{}> = () => {
   };
 
   return (
-    <>
+    <div className="add-image-form">
       <input type="text" value={imageUrl} onChange={handleChange} />
       <button onClick={add} disabled={!imageUrl}>
         Add
       </button>
       <button onClick={reset}>Reset</button>
-    </>
+    </div>
   );
 };

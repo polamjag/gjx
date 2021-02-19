@@ -1,2 +1,19 @@
-.App {
+.controllers {
+  margin: 16px;
+}
+
+.images-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.images-list li img {
+  height: 40px;
+  width: 71px;
+  object-fit: cover;
+}
+
+.add-image-form {
+}
+.add-image-form input {
 }
