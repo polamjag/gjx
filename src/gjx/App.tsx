@@ -6,6 +6,7 @@ import { FirebaseContext } from "./firebaseContext";
 
 import { AddImageForm } from "./components/AddImageForm";
 import { ImagesList } from "./components/ImagesList";
+import { SwitchingStrategySelector } from "./components/SwitchingStrategySelector";
 import { Switcher } from "./components/Switcher";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { Arena } from "./components/Arena";
@@ -30,6 +31,7 @@ const App: React.FC<{
           <div className="controllers">
             <ImagesList />
             <AddImageForm />
+            <SwitchingStrategySelector />
             <Switcher />
           </div>
 
