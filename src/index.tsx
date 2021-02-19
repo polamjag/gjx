@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './gjx/App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./gjx/App";
+import reportWebVitals from "./reportWebVitals";
 import firebase from "firebase";
 
 const firebaseConfig = {
@@ -15,14 +15,18 @@ const firebaseConfig = {
   appId: "1:192829888990:web:75b160ac76dae99555654f",
 };
 
-const fb = firebase.initializeApp(firebaseConfig);
+(async () => {
+  const fb = firebase.initializeApp(firebaseConfig);
+  const a = await fb.database().ref("sessions/").get();
+  console.log('initial', a);
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App firebase={fb} />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  ReactDOM.render(
+    <React.StrictMode>
+      <App firebase={fb} initialState={a.exportVal()} />
+    </React.StrictMode>,
+    document.getElementById("root")
+  );
+})();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
