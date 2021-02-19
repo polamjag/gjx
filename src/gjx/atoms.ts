@@ -6,6 +6,11 @@ export const imagesState = atom<{ [key: string]: string }>({
   key: 'images',
 });
 
+export const selectedImageState = atom<string | undefined>({
+  default: undefined,
+  key: 'selectedImage',
+})
+
 export const switchingStrategyState = atom<SwitchingStrategies>({
   default: {
     name: 'intervalSwitching',
