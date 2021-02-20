@@ -69,7 +69,8 @@ const omakaseQueries = [
   "sky",
   "wave",
   "glitch",
-  "lofi hiphop"
+  "lofi hiphop",
+  "pixelart"
 ];
 
 export const TenorAdder: React.FC<{}> = () => {
