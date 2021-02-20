@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { syncedAppState, realtimeSyncMetaState, defaultState } from "../atoms";
@@ -8,12 +8,15 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
   const [appState, setAppState] = useRecoilState(syncedAppState);
   const setRealtimeSyncMetaState = useSetRecoilState(realtimeSyncMetaState);
   const firebase = useContext(FirebaseContext);
+  const [needsSyncToFirebase, setNeedsSyncToFirebase] = useState<boolean>(true);
 
   useEffect(() => {
-    firebase?.database().ref("sessions/").set({
-      appState,
-    });
-  }, [firebase, appState]);
+    if (needsSyncToFirebase) {
+      firebase?.database().ref("sessions/").set({
+        appState,
+      });
+    }
+  }, [firebase, appState, needsSyncToFirebase]);
 
   useEffect(() => {
     firebase
@@ -25,7 +28,9 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           return;
         }
 
+        setNeedsSyncToFirebase(false);
         setAppState(() => ({ ...defaultState, ...data.appState }));
+        setNeedsSyncToFirebase(true);
         setRealtimeSyncMetaState({
           lastGotEpoch: Date.now(),
         });
