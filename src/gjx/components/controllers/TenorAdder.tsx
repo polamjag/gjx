@@ -47,7 +47,9 @@ const searchTenor = async ({
 
 export const TenorAdder: React.FC<{}> = () => {
   const [query, setQuery] = useState<string>("");
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [imageUrls, setImageUrls] = useState<
+    Array<{ thumbnailUrl: string; realImageUrl: string }>
+  >([]);
 
   const [currentSearchCursor, setCurrentSearchCursor] = useState<string>("");
 
@@ -65,7 +67,12 @@ export const TenorAdder: React.FC<{}> = () => {
       pos: currentSearchCursor,
     });
     setCurrentSearchCursor(res.next);
-    setImageUrls(res.results.map((im) => im.media[0]["mediumgif"].url));
+    setImageUrls(
+      res.results.map((im) => ({
+        realImageUrl: im.media[0]["mediumgif"].url,
+        thumbnailUrl: im.media[0]["nanogif"].url,
+      }))
+    );
   };
 
   return (
@@ -78,7 +85,9 @@ export const TenorAdder: React.FC<{}> = () => {
   );
 };
 
-const Images: React.FC<{ imageUrls: string[] }> = ({ imageUrls }) => {
+const Images: React.FC<{
+  imageUrls: Array<{ thumbnailUrl: string; realImageUrl: string }>;
+}> = ({ imageUrls }) => {
   const setImages = useSetRecoilState(imagesState);
 
   const addImage = (imageUrl: string) => {
@@ -91,12 +100,12 @@ const Images: React.FC<{ imageUrls: string[] }> = ({ imageUrls }) => {
 
   return (
     <div className="tenor-search-results">
-      {imageUrls.map((url) => (
+      {imageUrls.map(({ thumbnailUrl, realImageUrl }) => (
         <ThumbnailWithAction
-          thumbnailUrl={url}
-          onClickButton={() => addImage(url)}
+          thumbnailUrl={thumbnailUrl}
+          onClickButton={() => addImage(realImageUrl)}
           buttonLabel="+"
-          key={url}
+          key={thumbnailUrl}
         />
       ))}
     </div>
