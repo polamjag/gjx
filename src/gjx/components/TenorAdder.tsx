@@ -91,9 +91,11 @@ const Images: React.FC<{ imageUrls: string[] }> = ({ imageUrls }) => {
   return (
     <div className="tenor-search-results">
       {imageUrls.map((url) => (
-        <span key={url}>
+        <span key={url} className="tenor-search-result-image">
           <img src={url} alt="" />
-          <button onClick={() => addImage(url)}>+</button>
+          <button className="tenor-add-button" onClick={() => addImage(url)}>
+            +
+          </button>
         </span>
       ))}
     </div>

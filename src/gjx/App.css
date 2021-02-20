@@ -94,10 +94,38 @@ input[type="radio"].is-selected + label {
   margin: 0.4em 0 0;
 }
 
-.tenor-search-results img {
+.tenor-adder h3 {
+  margin: 0 0 .4em;
+}
+
+.tenor-search-results {
+  margin-top: .4em;
+}
+
+.tenor-search-result-image {
+  position: relative;
+}
+
+.tenor-search-result-image img {
   height: 40px;
   width: 71px;
   object-fit: cover;
+}
+
+.tenor-add-button {
+  position: absolute; 
+  box-sizing: border-box;
+  right: 0;
+  bottom: 2px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 .2em;
+  margin: .2em;
+  opacity: .6;
+  vertical-align: middle;
+}
+.tenor-add-button:hover {
+  opacity: 1;
 }
 
 .arena--content {
