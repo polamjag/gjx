@@ -102,17 +102,18 @@ input[type="radio"].is-selected + label {
   margin-top: .4em;
 }
 
-.tenor-search-result-image {
+.thumbnail-with-action {
   position: relative;
+  display: inline-block;
 }
 
-.tenor-search-result-image img {
+.thumbnail-with-action img {
   height: 40px;
   width: 71px;
   object-fit: cover;
 }
 
-.tenor-add-button {
+.thumbnail-with-action__button {
   position: absolute; 
   box-sizing: border-box;
   right: 0;
@@ -124,7 +125,7 @@ input[type="radio"].is-selected + label {
   opacity: .6;
   vertical-align: middle;
 }
-.tenor-add-button:hover {
+.thumbnail-with-action__button:hover {
   opacity: 1;
 }
 
