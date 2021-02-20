@@ -30,7 +30,7 @@ export const SwitchingStrategySelector: React.FC<{}> = () => {
   return (
     <div className="switching-strategy-selector">
       {strategies.map((strategy) => (
-        <span key={strategy.name}>
+        <span key={strategy.name} className="switching-strategy-selector__strategy">
           <input
             type="radio"
             name="switchingStrategy"
