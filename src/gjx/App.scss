@@ -147,6 +147,12 @@ input[type="radio"] {
   margin-top: 0.4em;
 }
 
+.switcher__interval {
+  .switcher__interval__value-label {
+    margin: 0 .3em;
+  }
+}
+
 .tenor-adder h3 {
   margin: 0 0 0.4em;
 }

@@ -129,7 +129,7 @@ export const TenorAdder: React.FC<{}> = () => {
 
   return (
     <div className="tenor-adder">
-      <input type="text" value={query} onChange={handleUpdateQuery} />
+      <input type="text" value={query} onChange={handleUpdateQuery} placeholder="Search GIFs" />
       <button onClick={performSearch}>{currentSearchCursor && imageUrls.length ? 'Next Page' : 'Search'}</button>
       <button onClick={handleOmakase} title="Omakase">💡</button>
       <Images imageUrls={imageUrls} />

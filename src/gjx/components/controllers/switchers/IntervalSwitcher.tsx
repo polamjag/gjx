@@ -7,7 +7,10 @@ import {
   switchingStrategyState,
 } from "../../../atoms";
 import { SwitchingStrategies } from "../../../types";
-import { calculateBPM, calculateBPMFromBeatInterval } from "../../../utils/calculateBPM";
+import {
+  calculateBPM,
+  calculateBPMFromBeatInterval,
+} from "../../../utils/calculateBPM";
 
 export const IntervalSwitcher: React.FC<{}> = () => {
   const [switchingStrategy, setSwitchingStrategy] = useRecoilState(
@@ -76,10 +79,16 @@ export const IntervalSwitcher: React.FC<{}> = () => {
         step={1}
         onChange={onChange}
       />
-      {switchingStrategy.intervalSwitching.state.intervalMs.toFixed(2)}ms
-      (≈ BPM {calculateBPMFromBeatInterval(switchingStrategy.intervalSwitching.state.intervalMs).toFixed(2)})
-        <button onClick={onClick2x}>x 2</button>
-        <button onClick={onClick1_2x}>/ 2</button>
+      <span className="switcher__interval__value-label">
+        {switchingStrategy.intervalSwitching.state.intervalMs.toFixed(2)}ms (≈
+        BPM{" "}
+        {calculateBPMFromBeatInterval(
+          switchingStrategy.intervalSwitching.state.intervalMs
+        ).toFixed(2)}
+        )
+      </span>
+      <button onClick={onClick2x}>x 2</button>
+      <button onClick={onClick1_2x}>/ 2</button>
       <div>
         <TapToBPM setIntervalMs={setIntervalMs} />
       </div>
