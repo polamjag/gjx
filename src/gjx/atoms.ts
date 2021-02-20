@@ -1,6 +1,6 @@
-import { atom, DefaultValue, selector } from 'recoil';
+import { atom, DefaultValue, selector } from "recoil";
 
-import { SwitchingStrategies, SwitchingStrategyName } from './types';
+import { SwitchingStrategies, SwitchingStrategyName } from "./types";
 
 interface AppState {
   images: { [key: string]: string };
