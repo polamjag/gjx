@@ -2,6 +2,10 @@
   padding: 16px;
   user-select: none;
   display: inline-block;
+  opacity: .3;
+}
+.controllers:hover {
+  opacity: 1;
   backdrop-filter: blur(8px);
   background: rgba(0,0,0,.1)
 }
@@ -17,7 +21,7 @@
   height: 40px;
   width: 71px;
 }
-.images-list li:nth-child(4) {
+.images-list li:nth-child(4n) {
   margin-right: 8px;
 }
 
