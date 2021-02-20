@@ -1,7 +1,9 @@
-input:disabled, button:disabled {
+input:disabled,
+button:disabled {
   cursor: not-allowed;
-  opacity: .5;
+  opacity: 0.5;
 }
+
 input[type="text"] {
   font-family: inherit;
   border: #000 2px solid;
@@ -11,6 +13,7 @@ input[type="text"] {
   border-radius: 0.2em;
   margin-right: 0.3em;
 }
+
 button {
   font-family: inherit;
   border: #272727 2px solid;
@@ -32,20 +35,18 @@ input[type="radio"] {
   border-radius: 50%;
   margin: 0;
   transition: 0.05s ease border;
-}
-input[type="radio"].is-selected {
-  appearance: none;
-  border: 7.5px solid #72ffbd;
-}
 
-input[type="radio"] + label {
-  cursor: pointer;
-  margin: 0 0.4em 0 0.2em;
-  vertical-align: top;
-  line-height: 20px;
-}
-input[type="radio"].is-selected + label {
-  /* font-weight: bold; */
+  &.is-selected {
+    appearance: none;
+    border: 7.5px solid #72ffbd;
+  }
+
+  & + label {
+    cursor: pointer;
+    margin: 0 0.4em 0 0.2em;
+    vertical-align: top;
+    line-height: 20px;
+  }
 }
 
 .no-controllers {
@@ -57,26 +58,28 @@ input[type="radio"].is-selected + label {
   user-select: none;
   display: inline-block;
   opacity: 0.3;
-}
-.controllers:hover {
-  opacity: 1;
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.1);
+  }
 }
 
 .images-list {
   list-style-type: none;
   padding: 0;
   margin: 0 0 8px;
-}
 
-.images-list li {
-  display: inline-block;
-  height: 40px;
-  width: 71px;
-}
-.images-list li:nth-child(4n) {
-  margin-right: 8px;
+  li {
+    display: inline-block;
+    height: 40px;
+    width: 71px;
+
+    &:nth-child(4n) {
+      margin-right: 8px;
+    }
+  }
 }
 
 .add-image-form {
@@ -89,38 +92,39 @@ input[type="radio"].is-selected + label {
 }
 
 .tenor-adder h3 {
-  margin: 0 0 .4em;
+  margin: 0 0 0.4em;
 }
 
 .tenor-search-results {
-  margin-top: .4em;
+  margin-top: 0.4em;
 }
 
 .thumbnail-with-action {
   position: relative;
   display: inline-block;
-}
 
-.thumbnail-with-action img {
-  height: 40px;
-  width: 71px;
-  object-fit: cover;
+  img {
+    height: 40px;
+    width: 71px;
+    object-fit: cover;
+  }
 }
 
 .thumbnail-with-action__button {
-  position: absolute; 
+  position: absolute;
   box-sizing: border-box;
   right: 0;
   bottom: 2px;
   min-width: 20px;
   height: 20px;
-  padding: 0 .2em;
-  margin: .2em;
-  opacity: .6;
+  padding: 0 0.2em;
+  margin: 0.2em;
+  opacity: 0.6;
   vertical-align: middle;
-}
-.thumbnail-with-action__button:hover {
-  opacity: 1;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .arena--content {
