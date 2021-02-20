@@ -37,7 +37,7 @@ export const AddImageForm: React.FC<{}> = () => {
       <button onClick={add} disabled={!imageUrl}>
         Add
       </button>
-      <button onClick={reset}>Reset</button>
+      <button onClick={reset}>Remove All Images</button>
     </div>
   );
 };
