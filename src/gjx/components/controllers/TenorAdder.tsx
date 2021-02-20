@@ -126,7 +126,7 @@ export const TenorAdder: React.FC<{}> = () => {
     <div className="tenor-adder">
       <input type="text" value={query} onChange={handleUpdateQuery} />
       <button onClick={performSearch}>{currentSearchCursor && imageUrls.length ? 'Next Page' : 'Search'}</button>
-      <button onClick={handleOmakase}>💡</button>
+      <button onClick={handleOmakase} title="Omakase">💡</button>
       <Images imageUrls={imageUrls} />
       {gotError && <div>
         Got Error
