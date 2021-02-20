@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
@@ -88,24 +88,17 @@ const ManualSwitcher: React.FC<{}> = () => {
   const images = useRecoilValue(imagesState);
   const [, setSelectedImage] = useRecoilState(selectedImageState);
 
-  const [rangeValue, setRangeValue] = useState<number>(
-    switchingStrategy.manualSwitching.state.index
-  );
-
   const onChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    setRangeValue(Number(value));
-  };
-
-  const change = () => {
+    const val = Number(value);
     setSwitchingStrategy((oldState: SwitchingStrategies) => {
       const newState: SwitchingStrategies = {
         ...oldState,
         manualSwitching: {
           name: "manualSwitching",
           state: {
-            index: rangeValue,
+            index: val,
           },
         },
       };
@@ -129,12 +122,11 @@ const ManualSwitcher: React.FC<{}> = () => {
       <div>Manual Switcher</div>
       <input
         type="range"
-        value={rangeValue}
+        value={switchingStrategy.manualSwitching.state.index}
         min={0}
         max={0.99}
         step={0.01}
         onChange={onChange}
-        onMouseUp={change}
       />
     </div>
   );
