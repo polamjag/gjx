@@ -43,7 +43,10 @@ export const imagesState = selector<SyncedAppState["images"]>({
   },
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
-      return set(syncedAppState, (prevValue) => ({ ...prevValue, images: newValue }));
+      return set(syncedAppState, (prevValue) => ({
+        ...prevValue,
+        images: newValue,
+      }));
     }
   },
 });
@@ -67,7 +70,9 @@ export const activeSwitchingStrategyNameState = selector<
   },
 });
 
-export const switchingStrategyState = selector<SyncedAppState["switchingStrategy"]>({
+export const switchingStrategyState = selector<
+  SyncedAppState["switchingStrategy"]
+>({
   key: "filteredSwitchingStrategy",
   get: ({ get }) => {
     const app = get(syncedAppState);
