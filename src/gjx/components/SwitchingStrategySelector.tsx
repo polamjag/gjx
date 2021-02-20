@@ -4,12 +4,14 @@ import { useRecoilState } from "recoil";
 import { activeSwitchingStrategyNameState } from "../atoms";
 import { SwitchingStrategyName } from "../types";
 
-const strategies: Array<{ name: SwitchingStrategyName }> = [
+const strategies: Array<{ name: SwitchingStrategyName; label: string }> = [
   {
     name: "intervalSwitching",
+    label: "Interval",
   },
   {
     name: "manualSwitching",
+    label: "Manual",
   },
 ];
 
@@ -26,17 +28,23 @@ export const SwitchingStrategySelector: React.FC<{}> = () => {
   };
 
   return (
-    <>
+    <div className="switching-strategy-selector">
       {strategies.map((strategy) => (
-        <input
-          type="radio"
-          key={strategy.name}
-          name="switchingStrategy"
-          checked={activeSwitchingStrategyName === strategy.name}
-          onChange={handleChange}
-          value={strategy.name}
-        />
+        <span key={strategy.name}>
+          <input
+            type="radio"
+            name="switchingStrategy"
+            checked={activeSwitchingStrategyName === strategy.name}
+            id={strategy.name}
+            onChange={handleChange}
+            value={strategy.name}
+            className={
+              activeSwitchingStrategyName === strategy.name ? "is-selected" : ""
+            }
+          />
+          <label htmlFor={strategy.name}>{strategy.label}</label>
+        </span>
       ))}
-    </>
+    </div>
   );
 };

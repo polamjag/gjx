@@ -1,3 +1,53 @@
+input:disabled, button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+input[type="text"] {
+  font-family: inherit;
+  border: #000 2px solid;
+  background: #111;
+  color: #eee;
+  padding: 0.3em;
+  border-radius: 0.2em;
+  margin-right: 0.3em;
+}
+button {
+  font-family: inherit;
+  border: #272727 2px solid;
+  background: rgb(56, 56, 56);
+  color: #eee;
+  cursor: pointer;
+  padding: 0.3em;
+  border-radius: 0.2em;
+  margin-right: 0.3em;
+}
+
+input[type="radio"] {
+  cursor: pointer;
+  appearance: none;
+  border: 4px solid rgb(112, 112, 112);
+  background: black;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 0;
+  transition: 0.05s ease border;
+}
+input[type="radio"].is-selected {
+  appearance: none;
+  border: 7.5px solid #72ffbd;
+}
+
+input[type="radio"] + label {
+  cursor: pointer;
+  margin: 0 0.4em 0 0.2em;
+  vertical-align: top;
+  line-height: 20px;
+}
+input[type="radio"].is-selected + label {
+  /* font-weight: bold; */
+}
+
 .no-controllers {
   display: none;
 }
@@ -38,6 +88,10 @@
 .add-image-form {
 }
 .add-image-form input {
+}
+
+.switching-strategy-selector {
+  margin: 0.4em 0 0;
 }
 
 .tenor-search-results img {
