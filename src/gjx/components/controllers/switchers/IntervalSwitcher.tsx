@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
@@ -7,6 +7,7 @@ import {
   switchingStrategyState,
 } from "../../../atoms";
 import { SwitchingStrategies } from "../../../types";
+import { calculateBPM, calculateBPMFromBeatInterval } from "../../../utils/calculateBPM";
 
 export const IntervalSwitcher: React.FC<{}> = () => {
   const [switchingStrategy, setSwitchingStrategy] = useRecoilState(
@@ -15,21 +16,25 @@ export const IntervalSwitcher: React.FC<{}> = () => {
   const images = useRecoilValue(imagesState);
   const [, setSelectedImage] = useRecoilState(selectedImageState);
 
-  const onChange = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  const setIntervalMs = (val: number) => {
     setSwitchingStrategy((oldState: SwitchingStrategies) => {
       const newState: SwitchingStrategies = {
         ...oldState,
         intervalSwitching: {
           name: "intervalSwitching",
           state: {
-            intervalMs: Number(value),
+            intervalMs: val,
           },
         },
       };
       return newState;
     });
+  };
+
+  const onChange = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    setIntervalMs(Number(value));
   };
 
   const imageArr = Object.entries(images);
@@ -52,6 +57,14 @@ export const IntervalSwitcher: React.FC<{}> = () => {
     setSelectedImage,
   ]);
 
+  const onClick2x = () => {
+    setIntervalMs(switchingStrategy.intervalSwitching.state.intervalMs / 2);
+  };
+
+  const onClick1_2x = () => {
+    setIntervalMs(switchingStrategy.intervalSwitching.state.intervalMs * 2);
+  };
+
   return (
     <div className="switcher switcher__interval">
       <div>Interval Random Switcher</div>
@@ -60,9 +73,50 @@ export const IntervalSwitcher: React.FC<{}> = () => {
         value={switchingStrategy.intervalSwitching.state.intervalMs}
         max={2000}
         min={30}
+        step={1}
         onChange={onChange}
       />
-      {switchingStrategy.intervalSwitching.state.intervalMs}ms
+      {switchingStrategy.intervalSwitching.state.intervalMs.toFixed(2)}ms
+      (≈ BPM {calculateBPMFromBeatInterval(switchingStrategy.intervalSwitching.state.intervalMs).toFixed(2)})
+        <button onClick={onClick2x}>x 2</button>
+        <button onClick={onClick1_2x}>/ 2</button>
+      <div>
+        <TapToBPM setIntervalMs={setIntervalMs} />
+      </div>
     </div>
+  );
+};
+
+const TapToBPM: React.FC<{ setIntervalMs: (interval: number) => void }> = ({
+  setIntervalMs,
+}) => {
+  const [tappedTimestamps, setTappedTimestamps] = useState<number[]>([]);
+
+  const detectedBPM =
+    tappedTimestamps.length > 1 ? calculateBPM(tappedTimestamps) : 0;
+
+  const handleTap = () => {
+    const now = Date.now();
+    if (tappedTimestamps.length === 0) {
+      setTappedTimestamps([now]);
+      return;
+    }
+    if (now - tappedTimestamps[tappedTimestamps.length - 1] > 2000) {
+      setTappedTimestamps([now]);
+      return;
+    }
+
+    setTappedTimestamps([...tappedTimestamps.slice(-15), Date.now()]);
+
+    if (tappedTimestamps.length > 4) {
+      setIntervalMs((60 / detectedBPM) * 1000);
+    }
+  };
+
+  return (
+    <>
+      <button onClick={handleTap}>Tap BPM</button>
+      {detectedBPM ? detectedBPM.toFixed(2) : "-"}
+    </>
   );
 };
