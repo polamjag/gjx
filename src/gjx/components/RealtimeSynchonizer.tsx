@@ -1,19 +1,19 @@
-import React, { useContext, useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import React, { useContext, useEffect } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
-import { imagesState, realtimeSyncMetaState } from '../atoms';
-import { FirebaseContext } from '../firebaseContext';
+import { syncedAppState, realtimeSyncMetaState, defaultState } from "../atoms";
+import { FirebaseContext } from "../firebaseContext";
 
 export const RealtimeSynchronizer: React.FC<{}> = () => {
-  const [images, setImages] = useRecoilState(imagesState);
+  const [appState, setAppState] = useRecoilState(syncedAppState);
   const setRealtimeSyncMetaState = useSetRecoilState(realtimeSyncMetaState);
   const firebase = useContext(FirebaseContext);
 
   useEffect(() => {
     firebase?.database().ref("sessions/").set({
-      images,
+      appState,
     });
-  }, [firebase, images]);
+  }, [firebase, appState]);
 
   useEffect(() => {
     firebase
@@ -25,12 +25,12 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           return;
         }
 
-        setImages(() => data.images);
+        setAppState(() => ({ ...defaultState, ...data.appState}));
         setRealtimeSyncMetaState({
-          lastGotEpoch: Date.now()
-        })
+          lastGotEpoch: Date.now(),
+        });
       });
-  }, [firebase, setImages, setRealtimeSyncMetaState]);
+  }, [firebase, setAppState, setRealtimeSyncMetaState]);
 
   return <></>;
 };

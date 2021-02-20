@@ -1,25 +1,24 @@
-import './App.css';
+import "./App.css";
 
-import React, { useEffect, useState } from 'react';
-import { RecoilRoot } from 'recoil';
+import React, { useEffect, useState } from "react";
+import { RecoilRoot } from "recoil";
 
-import { imagesState } from './atoms';
-import { AddImageForm } from './components/AddImageForm';
-import { Arena } from './components/Arena';
-import { ImagesList } from './components/ImagesList';
-import { RealtimeSynchronizer } from './components/RealtimeSynchonizer';
-import { Switcher } from './components/Switcher';
-import { SwitchingStrategySelector } from './components/SwitchingStrategySelector';
-import { SyncIndicator } from './components/SyncIndicator';
-import { TenorAdder } from './components/TenorAdder';
-import { FirebaseContext } from './firebaseContext';
+import { defaultState, syncedAppState } from "./atoms";
+import { AddImageForm } from "./components/AddImageForm";
+import { Arena } from "./components/Arena";
+import { ImagesList } from "./components/ImagesList";
+import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
+import { Switcher } from "./components/Switcher";
+import { SwitchingStrategySelector } from "./components/SwitchingStrategySelector";
+import { SyncIndicator } from "./components/SyncIndicator";
+import { TenorAdder } from "./components/TenorAdder";
+import { FirebaseContext } from "./firebaseContext";
 
 import type firebase from "firebase";
 const App: React.FC<{
   firebase: ReturnType<typeof firebase.initializeApp>;
   initialState: any;
 }> = ({ firebase, initialState }) => {
-  console.log("initial", initialState);
   const [showControllers, setShowControllers] = useState<boolean>(true);
   useEffect(() => {
     // eslint-disable-next-line no-restricted-globals
@@ -34,7 +33,7 @@ const App: React.FC<{
       <FirebaseContext.Provider value={firebase}>
         <RecoilRoot
           initializeState={({ set }) => {
-            set(imagesState, initialState?.images || []);
+            set(syncedAppState, { ...defaultState, ...initialState?.appState });
           }}
         >
           <RealtimeSynchronizer />

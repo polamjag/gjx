@@ -2,14 +2,14 @@ import { atom, DefaultValue, selector } from "recoil";
 
 import { SwitchingStrategies, SwitchingStrategyName } from "./types";
 
-interface AppState {
+interface SyncedAppState {
   images: { [key: string]: string };
 
   activeSwitchingStrategyName: SwitchingStrategyName;
   switchingStrategy: SwitchingStrategies;
 }
 
-const defaultState: AppState = {
+export const defaultState: SyncedAppState = {
   images: {},
 
   activeSwitchingStrategyName: "intervalSwitching",
@@ -29,37 +29,37 @@ const defaultState: AppState = {
   },
 };
 
-export const appState = atom<AppState>({
+export const syncedAppState = atom<SyncedAppState>({
   default: { ...defaultState },
   key: "gjxApp",
 });
 
-export const imagesState = selector<AppState["images"]>({
+export const imagesState = selector<SyncedAppState["images"]>({
   key: "filteredImages",
   get: ({ get }) => {
-    const app = get(appState);
+    const app = get(syncedAppState);
 
     return app.images;
   },
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
-      return set(appState, (prevValue) => ({ ...prevValue, images: newValue }));
+      return set(syncedAppState, (prevValue) => ({ ...prevValue, images: newValue }));
     }
   },
 });
 
 export const activeSwitchingStrategyNameState = selector<
-  AppState["activeSwitchingStrategyName"]
+  SyncedAppState["activeSwitchingStrategyName"]
 >({
   key: "filteredActiveSwitchingStrategyName",
   get: ({ get }) => {
-    const app = get(appState);
+    const app = get(syncedAppState);
 
     return app.activeSwitchingStrategyName;
   },
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
-      return set(appState, (prevValue) => ({
+      return set(syncedAppState, (prevValue) => ({
         ...prevValue,
         activeSwitchingStrategyName: newValue,
       }));
@@ -67,16 +67,16 @@ export const activeSwitchingStrategyNameState = selector<
   },
 });
 
-export const switchingStrategyState = selector<AppState["switchingStrategy"]>({
+export const switchingStrategyState = selector<SyncedAppState["switchingStrategy"]>({
   key: "filteredSwitchingStrategy",
   get: ({ get }) => {
-    const app = get(appState);
+    const app = get(syncedAppState);
 
     return app.switchingStrategy;
   },
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
-      return set(appState, (prevValue) => ({
+      return set(syncedAppState, (prevValue) => ({
         ...prevValue,
         switchingStrategy: newValue,
       }));
