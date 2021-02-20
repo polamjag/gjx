@@ -8,6 +8,7 @@ import { AddImageForm } from "./components/AddImageForm";
 import { ImagesList } from "./components/ImagesList";
 import { SwitchingStrategySelector } from "./components/SwitchingStrategySelector";
 import { Switcher } from "./components/Switcher";
+import { TenorAdder } from './components/TenorAdder'
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { Arena } from "./components/Arena";
 
@@ -33,6 +34,8 @@ const App: React.FC<{
             <AddImageForm />
             <SwitchingStrategySelector />
             <Switcher />
+
+            <TenorAdder />
           </div>
 
           <Arena />
