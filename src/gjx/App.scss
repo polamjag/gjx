@@ -10,7 +10,7 @@ button:disabled {
 }
 
 input[type="text"] {
-  font-family: inherit;
+  font: inherit;
   border: #000 2px solid;
   background: #111;
   color: #eee;
@@ -24,7 +24,7 @@ input[type="text"] {
 }
 
 button {
-  font-family: inherit;
+  font: inherit;
   border: #272727 2px solid;
   background: rgb(56, 56, 56);
   color: #eee;
@@ -66,6 +66,10 @@ input[type="radio"] {
     margin: 0 0.4em 0 0.2em;
     vertical-align: top;
     line-height: 20px;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -83,6 +87,28 @@ input[type="radio"] {
     opacity: 1;
     backdrop-filter: blur(8px);
     background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.controller-section {
+  .controller-section__title {
+    margin: 0.6em 0 0.4em;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+
+    &:after {
+      content: "";
+      flex: 1;
+      margin-left: 0.5em;
+      margin-top: 0.07em;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  &:first-child .controller-section__title {
+    margin-top: 0;
   }
 }
 
@@ -109,6 +135,10 @@ input[type="radio"] {
 
 .switching-strategy-selector {
   margin: 0.4em 0 0;
+}
+
+.switcher {
+  margin-top: 0.4em;
 }
 
 .tenor-adder h3 {

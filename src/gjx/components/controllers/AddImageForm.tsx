@@ -31,8 +31,9 @@ export const AddImageForm: React.FC<{}> = () => {
         type="text"
         value={imageUrl}
         onChange={handleChange}
-        placeholder="https://example.com/anime.gif"
+        placeholder="example.com/anime.gif"
         maxLength={1024}
+        size={21}
       />
       <button onClick={add} disabled={!imageUrl}>
         Add

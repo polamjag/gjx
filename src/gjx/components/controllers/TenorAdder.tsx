@@ -77,7 +77,6 @@ export const TenorAdder: React.FC<{}> = () => {
 
   return (
     <div className="tenor-adder">
-      <h3>Tenor</h3>
       <input type="text" value={query} onChange={handleUpdateQuery} />
       <button onClick={handleSearch}>Search</button>
       <Images imageUrls={imageUrls} />

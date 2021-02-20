@@ -6,6 +6,7 @@ import { RecoilRoot } from "recoil";
 import { defaultState, syncedAppState } from "./atoms";
 import { Arena } from "./components/Arena";
 import { AddImageForm } from "./components/controllers/AddImageForm";
+import { ControllerSection } from "./components/molecures/ControllerSection";
 import { ImagesList } from "./components/controllers/ImagesList";
 import { Switcher } from "./components/controllers/Switcher";
 import { SwitchingStrategySelector } from "./components/controllers/SwitchingStrategySelector";
@@ -40,12 +41,19 @@ const App: React.FC<{
           <SyncIndicator />
 
           <div className={showControllers ? "controllers" : "no-controllers"}>
-            <ImagesList />
-            <AddImageForm />
-            <SwitchingStrategySelector />
-            <Switcher />
+            <ControllerSection title="Image Bin">
+              <ImagesList />
+              <AddImageForm />
+            </ControllerSection>
 
-            <TenorAdder />
+            <ControllerSection title="Switcher">
+              <SwitchingStrategySelector />
+              <Switcher />
+            </ControllerSection>
+
+            <ControllerSection title="Tenor">
+              <TenorAdder />
+            </ControllerSection>
           </div>
 
           <Arena />
