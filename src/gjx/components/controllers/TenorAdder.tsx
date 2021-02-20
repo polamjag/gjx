@@ -65,7 +65,11 @@ const omakaseQueries = [
   "dubstep",
   "nightclub",
   "ultra miami",
-  "ultra"
+  "ultra",
+  "sky",
+  "wave",
+  "glitch",
+  "lofi hiphop"
 ];
 
 export const TenorAdder: React.FC<{}> = () => {
