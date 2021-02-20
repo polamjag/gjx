@@ -15,7 +15,7 @@ export const AddImageForm: React.FC<{}> = () => {
   const add = () => {
     setImages((oldImages) => {
       const newImages = {...oldImages};
-      newImages[oldImages.length] = imageUrl;
+      newImages[oldImages.length.toString()] = imageUrl;
       return newImages;
     });
     setImageUrl("");

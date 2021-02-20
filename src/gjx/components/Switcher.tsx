@@ -50,9 +50,12 @@ const IntervalSwitcher: React.FC<{}> = () => {
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setSelectedImage(
-        imageArr[Math.floor(Math.random() * imageArr.length)][1]
-      );
+      let image;
+      try {
+        image = imageArr[Math.floor(Math.random() * imageArr.length)][1];
+      } catch {}
+
+      setSelectedImage(image);
     }, switchingStrategy.intervalSwitching.state.intervalMs);
     return () => {
       window.clearInterval(timer);
