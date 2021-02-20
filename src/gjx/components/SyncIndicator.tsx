@@ -13,7 +13,7 @@ export const SyncIndicator: React.FC<{}> = () => {
       if (lastGot !== syncMeta.lastGotEpoch) {
         setLastGot(syncMeta.lastGotEpoch);
         setIndicatorOpacity(1);
-      } else if (indicatorOpacity > 0) {
+      } else if (indicatorOpacity > 0.001) {
         setIndicatorOpacity(indicatorOpacity * 0.91);
       }
     });
