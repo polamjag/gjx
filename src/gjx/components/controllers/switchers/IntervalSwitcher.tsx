@@ -15,7 +15,7 @@ import {
 const intervalSwitcherState = selector<
   SyncedAppState["switchingStrategy"]["intervalSwitching"]["state"]
 >({
-  key: "hoge",
+  key: "intervalSwitcherState",
   get: ({ get }) => {
     const swst = get(switchingStrategyState);
     return swst.intervalSwitching.state;
