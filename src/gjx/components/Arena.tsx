@@ -1,7 +1,7 @@
-import React from "react";
-import { useRecoilValue } from "recoil";
+import React from 'react';
+import { useRecoilValue } from 'recoil';
 
-import { selectedImageState } from "../atoms";
+import { selectedImageState } from '../atoms';
 
 export const Arena: React.FC<{}> = () => {
   const image = useRecoilValue(selectedImageState);

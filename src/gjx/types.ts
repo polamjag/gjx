@@ -1,4 +1,4 @@
-export type SwitchingStrategyName = 'intervalSwitching' | 'manualSwitching';
+export type SwitchingStrategyName = "intervalSwitching" | "manualSwitching";
 interface SwitchingStrategy {
   name: SwitchingStrategyName;
   state: {};

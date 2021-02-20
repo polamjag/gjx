@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
-import { realtimeSyncMetaState } from '../atoms';
+import { realtimeSyncMetaState } from "../atoms";
 
 export const SyncIndicator: React.FC<{}> = () => {
   const [lastGot, setLastGot] = useState<number>(0);
@@ -12,13 +12,15 @@ export const SyncIndicator: React.FC<{}> = () => {
     const id = window.requestAnimationFrame(() => {
       if (lastGot !== syncMeta.lastGotEpoch) {
         setLastGot(syncMeta.lastGotEpoch);
-        setIndicatorOpacity(1)
+        setIndicatorOpacity(1);
       } else if (indicatorOpacity > 0) {
         setIndicatorOpacity(indicatorOpacity * 0.91);
       }
-    })
-    return () => window.cancelAnimationFrame(id)
-  })
+    });
+    return () => window.cancelAnimationFrame(id);
+  });
 
-  return <div className="sync-indicator" style={{opacity: indicatorOpacity}}></div>;
+  return (
+    <div className="sync-indicator" style={{ opacity: indicatorOpacity }}></div>
+  );
 };

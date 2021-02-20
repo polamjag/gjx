@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
+import './App.css';
+
+import React, { useEffect, useState } from 'react';
+import { RecoilRoot } from 'recoil';
+
+import { imagesState } from './atoms';
+import { AddImageForm } from './components/AddImageForm';
+import { Arena } from './components/Arena';
+import { ImagesList } from './components/ImagesList';
+import { RealtimeSynchronizer } from './components/RealtimeSynchonizer';
+import { Switcher } from './components/Switcher';
+import { SwitchingStrategySelector } from './components/SwitchingStrategySelector';
+import { SyncIndicator } from './components/SyncIndicator';
+import { TenorAdder } from './components/TenorAdder';
+import { FirebaseContext } from './firebaseContext';
+
 import type firebase from "firebase";
-import { RecoilRoot } from "recoil";
-import { FirebaseContext } from "./firebaseContext";
-
-import { AddImageForm } from "./components/AddImageForm";
-import { ImagesList } from "./components/ImagesList";
-import { SwitchingStrategySelector } from "./components/SwitchingStrategySelector";
-import { Switcher } from "./components/Switcher";
-import { TenorAdder } from "./components/TenorAdder";
-import { SyncIndicator } from "./components/SyncIndicator";
-import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
-import { Arena } from "./components/Arena";
-
-import { imagesState } from "./atoms";
-
 const App: React.FC<{
   firebase: ReturnType<typeof firebase.initializeApp>;
   initialState: any;

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
 
-import { imagesState } from '../atoms';
+import { imagesState } from "../atoms";
 
 interface TenorImage {
   id: string;

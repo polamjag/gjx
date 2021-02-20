@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { imagesState, realtimeSyncMetaState } from "../atoms";
-import { FirebaseContext } from "../firebaseContext";
+import React, { useContext, useEffect } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+
+import { imagesState, realtimeSyncMetaState } from '../atoms';
+import { FirebaseContext } from '../firebaseContext';
 
 export const RealtimeSynchronizer: React.FC<{}> = () => {
   const [images, setImages] = useRecoilState(imagesState);
