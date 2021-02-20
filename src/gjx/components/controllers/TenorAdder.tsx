@@ -65,6 +65,7 @@ export const TenorAdder: React.FC<{}> = () => {
   const [imageUrls, setImageUrls] = useState<
     Array<{ thumbnailUrl: string; realImageUrl: string }>
   >([]);
+  const [gotError, setGotError] = useState<boolean>(false);
 
   const [currentSearchCursor, setCurrentSearchCursor] = useState<string>("");
 
@@ -84,6 +85,8 @@ export const TenorAdder: React.FC<{}> = () => {
       return;
     }
 
+    setGotError(false);
+
     searchTenor(tenorSearchParamsState).then((res) => {
       setCurrentSearchCursor(res.next);
       setImageUrls(
@@ -92,7 +95,7 @@ export const TenorAdder: React.FC<{}> = () => {
           thumbnailUrl: im.media[0]["nanogif"].url,
         }))
       );
-    });
+    }).catch(() => setGotError(true));
   }, [tenorSearchParamsState]);
 
   const performSearch = () => {
@@ -114,9 +117,12 @@ export const TenorAdder: React.FC<{}> = () => {
   return (
     <div className="tenor-adder">
       <input type="text" value={query} onChange={handleUpdateQuery} />
-      <button onClick={performSearch}>{currentSearchCursor ? 'Next Page' : 'Search'}</button>
+      <button onClick={performSearch}>{currentSearchCursor && imageUrls.length ? 'Next Page' : 'Search'}</button>
       <button onClick={handleOmakase}>💡</button>
       <Images imageUrls={imageUrls} />
+      {gotError && <div>
+        Got Error
+        </div>}
     </div>
   );
 };
