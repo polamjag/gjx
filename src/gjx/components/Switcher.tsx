@@ -104,11 +104,18 @@ const ManualSwitcher: React.FC<{}> = () => {
       };
       return newState;
     });
-
-    setSelectedImage(
-      Object.values(images)[Math.floor(val * Object.values(images).length)]
-    );
   };
+
+  useEffect(() => {
+    setSelectedImage(
+      Object.values(images)[
+        Math.floor(
+          switchingStrategy.manualSwitching.state.index *
+            Object.values(images).length
+        )
+      ]
+    );
+  }, [images, setSelectedImage, switchingStrategy.manualSwitching.state.index]);
 
   return (
     <div className="switcher switcher__interval">
