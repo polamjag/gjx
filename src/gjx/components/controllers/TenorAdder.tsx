@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { imagesState } from "../../atoms";
-import { ThumbnailWithAction } from '../molecures/ThumbnailWithAction'
+import { ThumbnailWithAction } from "../molecures/ThumbnailWithAction";
 
 interface TenorImage {
   id: string;
