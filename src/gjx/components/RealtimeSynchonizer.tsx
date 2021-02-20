@@ -25,7 +25,7 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           return;
         }
 
-        setAppState(() => ({ ...defaultState, ...data.appState}));
+        setAppState(() => ({ ...defaultState, ...data.appState }));
         setRealtimeSyncMetaState({
           lastGotEpoch: Date.now(),
         });
