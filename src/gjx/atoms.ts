@@ -4,7 +4,6 @@ import { SwitchingStrategies, SwitchingStrategyName } from "./types";
 
 interface AppState {
   images: { [key: string]: string };
-  selectedImage: string | undefined;
 
   activeSwitchingStrategyName: SwitchingStrategyName;
   switchingStrategy: SwitchingStrategies;
@@ -12,7 +11,6 @@ interface AppState {
 
 const defaultState: AppState = {
   images: {},
-  selectedImage: undefined,
 
   activeSwitchingStrategyName: "intervalSwitching",
   switchingStrategy: {
@@ -46,23 +44,6 @@ export const imagesState = selector<AppState["images"]>({
   set: ({ set }, newValue) => {
     if (!(newValue instanceof DefaultValue)) {
       return set(appState, (prevValue) => ({ ...prevValue, images: newValue }));
-    }
-  },
-});
-
-export const selectedImageState = selector<AppState["selectedImage"]>({
-  key: "filteredSelectedImage",
-  get: ({ get }) => {
-    const app = get(appState);
-
-    return app.selectedImage;
-  },
-  set: ({ set }, newValue) => {
-    if (!(newValue instanceof DefaultValue)) {
-      return set(appState, (prevValue) => ({
-        ...prevValue,
-        selectedImage: newValue,
-      }));
     }
   },
 });
@@ -101,6 +82,13 @@ export const switchingStrategyState = selector<AppState["switchingStrategy"]>({
       }));
     }
   },
+});
+
+// local states
+
+export const selectedImageState = atom<string | undefined>({
+  key: "selectedImage",
+  default: undefined,
 });
 
 export const realtimeSyncMetaState = atom<{ lastGotEpoch: number }>({
