@@ -1,36 +1,48 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { DefaultValue, selector, useRecoilState, useRecoilValue } from "recoil";
 
 import {
   imagesState,
   selectedImageState,
   switchingStrategyState,
+  SyncedAppState,
 } from "../../../atoms";
-import { SwitchingStrategies } from "../../../types";
 import {
   calculateBPM,
   calculateBPMFromBeatInterval,
 } from "../../../utils/calculateBPM";
 
+const intervalSwitcherState = selector<
+  SyncedAppState["switchingStrategy"]["intervalSwitching"]["state"]
+>({
+  key: "hoge",
+  get: ({ get }) => {
+    const swst = get(switchingStrategyState);
+    return swst.intervalSwitching.state;
+  },
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      return set(switchingStrategyState, (prevValue) => ({
+        ...prevValue,
+        intervalSwitching: {
+          name: "intervalSwitching" as const,
+          state: newValue,
+        },
+      }));
+    }
+  },
+});
+
 export const IntervalSwitcher: React.FC<{}> = () => {
-  const [switchingStrategy, setSwitchingStrategy] = useRecoilState(
-    switchingStrategyState
-  );
+  const [state, setState] = useRecoilState(intervalSwitcherState);
   const images = useRecoilValue(imagesState);
   const [, setSelectedImage] = useRecoilState(selectedImageState);
 
   const setIntervalMs = (val: number) => {
-    setSwitchingStrategy((oldState: SwitchingStrategies) => {
-      const newState: SwitchingStrategies = {
-        ...oldState,
-        intervalSwitching: {
-          name: "intervalSwitching",
-          state: {
-            intervalMs: val,
-          },
-        },
+    setState(() => {
+      return {
+        intervalMs: val,
       };
-      return newState;
     });
   };
 
@@ -50,22 +62,26 @@ export const IntervalSwitcher: React.FC<{}> = () => {
       } catch {}
 
       setSelectedImage(image);
-    }, switchingStrategy.intervalSwitching.state.intervalMs);
+    }, state.intervalMs);
     return () => {
       window.clearInterval(timer);
     };
-  }, [
-    imageArr,
-    switchingStrategy.intervalSwitching.state.intervalMs,
-    setSelectedImage,
-  ]);
+  }, [imageArr, state.intervalMs, setSelectedImage]);
 
   const onClick2x = () => {
-    setIntervalMs(switchingStrategy.intervalSwitching.state.intervalMs / 2);
+    setState((currVal) => {
+      return {
+        intervalMs: currVal.intervalMs / 2,
+      };
+    });
   };
 
   const onClick1_2x = () => {
-    setIntervalMs(switchingStrategy.intervalSwitching.state.intervalMs * 2);
+    setState((currVal) => {
+      return {
+        intervalMs: currVal.intervalMs * 2,
+      };
+    });
   };
 
   return (
@@ -73,19 +89,15 @@ export const IntervalSwitcher: React.FC<{}> = () => {
       <div>Interval Random Switcher</div>
       <input
         type="range"
-        value={switchingStrategy.intervalSwitching.state.intervalMs}
+        value={state.intervalMs}
         max={2000}
         min={30}
         step={1}
         onChange={onChange}
       />
       <span className="switcher__interval__value-label">
-        {switchingStrategy.intervalSwitching.state.intervalMs.toFixed(2)}ms (≈
-        BPM{" "}
-        {calculateBPMFromBeatInterval(
-          switchingStrategy.intervalSwitching.state.intervalMs
-        ).toFixed(2)}
-        )
+        {state.intervalMs.toFixed(2)}ms (≈ BPM{" "}
+        {calculateBPMFromBeatInterval(state.intervalMs).toFixed(2)})
       </span>
       <button onClick={onClick2x}>x 2</button>
       <button onClick={onClick1_2x}>/ 2</button>

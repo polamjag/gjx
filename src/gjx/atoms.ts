@@ -2,7 +2,7 @@ import { atom, DefaultValue, selector } from "recoil";
 
 import { SwitchingStrategies, SwitchingStrategyName } from "./types";
 
-interface SyncedAppState {
+export interface SyncedAppState {
   images: { [key: string]: string };
 
   activeSwitchingStrategyName: SwitchingStrategyName;
