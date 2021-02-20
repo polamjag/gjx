@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import { imagesState } from '../atoms';
+import { imagesState } from '../../atoms';
 
 export const AddImageForm: React.FC<{}> = () => {
   const setImages = useSetRecoilState(imagesState);

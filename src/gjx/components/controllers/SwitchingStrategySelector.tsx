@@ -1,8 +1,8 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 
-import { activeSwitchingStrategyNameState } from "../atoms";
-import { SwitchingStrategyName } from "../types";
+import { activeSwitchingStrategyNameState } from "../../atoms";
+import { SwitchingStrategyName } from "../../types";
 
 const strategies: Array<{ name: SwitchingStrategyName; label: string }> = [
   {

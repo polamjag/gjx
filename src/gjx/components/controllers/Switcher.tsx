@@ -6,8 +6,8 @@ import {
   imagesState,
   selectedImageState,
   switchingStrategyState,
-} from "../atoms";
-import { SwitchingStrategies } from "../types";
+} from "../../atoms";
+import { SwitchingStrategies } from "../../types";
 
 export const Switcher: React.FC<{}> = () => {
   const switchingStrategyName = useRecoilValue(

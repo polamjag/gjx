@@ -4,14 +4,14 @@ import React, { useEffect, useState } from "react";
 import { RecoilRoot } from "recoil";
 
 import { defaultState, syncedAppState } from "./atoms";
-import { AddImageForm } from "./components/AddImageForm";
 import { Arena } from "./components/Arena";
-import { ImagesList } from "./components/ImagesList";
+import { AddImageForm } from "./components/controllers/AddImageForm";
+import { ImagesList } from "./components/controllers/ImagesList";
+import { Switcher } from "./components/controllers/Switcher";
+import { SwitchingStrategySelector } from "./components/controllers/SwitchingStrategySelector";
+import { TenorAdder } from "./components/controllers/TenorAdder";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
-import { Switcher } from "./components/Switcher";
-import { SwitchingStrategySelector } from "./components/SwitchingStrategySelector";
 import { SyncIndicator } from "./components/SyncIndicator";
-import { TenorAdder } from "./components/TenorAdder";
 import { FirebaseContext } from "./firebaseContext";
 
 import type firebase from "firebase";
