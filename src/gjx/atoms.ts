@@ -1,23 +1,20 @@
-import { atom } from "recoil";
+import { atom, DefaultValue, selector } from "recoil";
 import { SwitchingStrategies, SwitchingStrategyName } from "./types";
 
-export const imagesState = atom<{ [key: string]: string }>({
-  default: {},
-  key: "images",
-});
+interface AppState {
+  images: { [key: string]: string };
+  selectedImage: string | undefined;
 
-export const selectedImageState = atom<string | undefined>({
-  default: undefined,
-  key: "selectedImage",
-});
+  activeSwitchingStrategyName: SwitchingStrategyName;
+  switchingStrategy: SwitchingStrategies;
+}
 
-export const activeSwitchingStrategyNameState = atom<SwitchingStrategyName>({
-  default: "intervalSwitching",
-  key: "activeSwitchingStrategy",
-});
+const defaultState: AppState = {
+  images: {},
+  selectedImage: undefined,
 
-export const switchingStrategyState = atom<SwitchingStrategies>({
-  default: {
+  activeSwitchingStrategyName: "intervalSwitching",
+  switchingStrategy: {
     intervalSwitching: {
       name: "intervalSwitching",
       state: {
@@ -31,5 +28,65 @@ export const switchingStrategyState = atom<SwitchingStrategies>({
       },
     },
   },
-  key: "switchingStrategy",
+};
+
+export const appState = atom<AppState>({
+  default: { ...defaultState },
+  key: "gjxApp",
+});
+
+export const imagesState = selector<AppState["images"]>({
+  key: "filteredImages",
+  get: ({ get }) => {
+    const app = get(appState);
+
+    return app.images;
+  },
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      return set(appState, (prevValue) => ({ ...prevValue, images: newValue }));
+    }
+  },
+});
+
+export const selectedImageState = selector<AppState["selectedImage"]>({
+  key: "filteredSelectedImage",
+  get: ({ get }) => {
+    const app = get(appState);
+
+    return app.selectedImage;
+  },
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      return set(appState, (prevValue) => ({ ...prevValue, selectedImage: newValue }));
+    }
+  },
+});
+
+export const activeSwitchingStrategyNameState = selector<AppState["activeSwitchingStrategyName"]>({
+  key: "filteredActiveSwitchingStrategyName",
+  get: ({ get }) => {
+    const app = get(appState);
+
+    return app.activeSwitchingStrategyName;
+  },
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      return set(appState, (prevValue) => ({ ...prevValue, activeSwitchingStrategyName: newValue }));
+    }
+  },
+});
+
+export const switchingStrategyState = selector<AppState["switchingStrategy"]>({
+  key: "filteredSwitchingStrategy",
+  get: ({ get }) => {
+    const app = get(appState);
+
+    return app.switchingStrategy;
+  },
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      return set(appState, (prevValue) => ({ ...prevValue, switchingStrategy: newValue }));
+    }
+  },
 });
