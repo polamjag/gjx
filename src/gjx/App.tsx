@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import type firebase from "firebase";
 import { RecoilRoot } from "recoil";
@@ -8,7 +8,7 @@ import { AddImageForm } from "./components/AddImageForm";
 import { ImagesList } from "./components/ImagesList";
 import { SwitchingStrategySelector } from "./components/SwitchingStrategySelector";
 import { Switcher } from "./components/Switcher";
-import { TenorAdder } from './components/TenorAdder'
+import { TenorAdder } from "./components/TenorAdder";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { Arena } from "./components/Arena";
 
@@ -19,6 +19,15 @@ const App: React.FC<{
   initialState: any;
 }> = ({ firebase, initialState }) => {
   console.log("initial", initialState);
+  const [showControllers, setShowControllers] = useState<boolean>(true);
+  useEffect(() => {
+    // eslint-disable-next-line no-restricted-globals
+    const ops = location.hash.substring(1).split(",");
+    if (ops.includes("nocontrollers")) {
+      setShowControllers(false);
+    }
+  }, [setShowControllers]);
+
   return (
     <div className="App">
       <FirebaseContext.Provider value={firebase}>
@@ -29,7 +38,7 @@ const App: React.FC<{
         >
           <RealtimeSynchronizer />
 
-          <div className="controllers">
+          <div className={showControllers ? "controllers" : "no-controllers"}>
             <ImagesList />
             <AddImageForm />
             <SwitchingStrategySelector />

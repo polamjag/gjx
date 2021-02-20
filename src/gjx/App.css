@@ -1,3 +1,7 @@
+.no-controllers {
+  display: none;
+}
+
 .controllers {
   padding: 16px;
   user-select: none;
