@@ -79,12 +79,6 @@ input[type="radio"].is-selected + label {
   margin-right: 8px;
 }
 
-.images-list li img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .add-image-form {
 }
 .add-image-form input {
