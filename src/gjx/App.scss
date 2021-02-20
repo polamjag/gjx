@@ -30,7 +30,7 @@ button {
   background: rgb(56, 56, 56);
   color: #eee;
   cursor: pointer;
-  padding: 0.3em;
+  padding: 0.3em 0.45em;
   border-radius: 0.2em;
   margin-right: 0.3em;
   line-height: 1.2em;
@@ -88,7 +88,7 @@ input[type="radio"] {
   &:hover {
     opacity: 1;
     backdrop-filter: blur(8px);
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.4);
   }
 }
 
