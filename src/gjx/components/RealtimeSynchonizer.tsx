@@ -1,22 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import React, { useContext, useEffect } from "react";
+import { useRecoilState } from "recoil";
 
-import { syncedAppState, realtimeSyncMetaState, defaultState } from "../atoms";
+import { defaultState, realtimeSyncMetaState, syncedAppState } from "../atoms";
 import { FirebaseContext } from "../firebaseContext";
 
 export const RealtimeSynchronizer: React.FC<{}> = () => {
   const [appState, setAppState] = useRecoilState(syncedAppState);
-  const setRealtimeSyncMetaState = useSetRecoilState(realtimeSyncMetaState);
+  const [realtimeSyncMeta, setRealtimeSyncMetaState] = useRecoilState(
+    realtimeSyncMetaState
+  );
   const firebase = useContext(FirebaseContext);
-  const [needsSyncToFirebase, setNeedsSyncToFirebase] = useState<boolean>(true);
 
   useEffect(() => {
-    if (needsSyncToFirebase) {
+    if (realtimeSyncMeta.needsToSync) {
       firebase?.database().ref("sessions/").set({
         appState,
       });
     }
-  }, [firebase, appState, needsSyncToFirebase]);
+  }, [firebase, appState, realtimeSyncMeta]);
 
   useEffect(() => {
     firebase
@@ -28,10 +29,10 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           return;
         }
 
-        setNeedsSyncToFirebase(false);
+        setRealtimeSyncMetaState((old) => ({ ...old, needsToSync: false }));
         setAppState(() => ({ ...defaultState, ...data.appState }));
-        setNeedsSyncToFirebase(true);
         setRealtimeSyncMetaState({
+          needsToSync: true,
           lastGotEpoch: Date.now(),
         });
       });
