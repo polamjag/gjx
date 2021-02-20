@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { imagesState } from "../../atoms";
@@ -45,6 +45,21 @@ const searchTenor = async ({
   ).json();
 };
 
+const omakaseQueries = [
+  "psychedelic",
+  "space",
+  "vaporwave",
+  "idolmaster",
+  "d4dj",
+  "anime dance",
+  "tokyo night",
+  "taiko",
+  "drum",
+  "keion",
+  "vtuber",
+  "laser",
+];
+
 export const TenorAdder: React.FC<{}> = () => {
   const [query, setQuery] = useState<string>("");
   const [imageUrls, setImageUrls] = useState<
@@ -53,6 +68,10 @@ export const TenorAdder: React.FC<{}> = () => {
 
   const [currentSearchCursor, setCurrentSearchCursor] = useState<string>("");
 
+  const [tenorSearchParamsState, setTenorSearchParamsState] = useState<
+    undefined | { query: string; random: boolean; pos: string }
+  >(undefined);
+
   const handleUpdateQuery = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -60,25 +79,43 @@ export const TenorAdder: React.FC<{}> = () => {
     setCurrentSearchCursor("");
   };
 
-  const handleSearch = async () => {
-    const res = await searchTenor({
+  useEffect(() => {
+    if (!tenorSearchParamsState) {
+      return;
+    }
+
+    searchTenor(tenorSearchParamsState).then((res) => {
+      setCurrentSearchCursor(res.next);
+      setImageUrls(
+        res.results.map((im) => ({
+          realImageUrl: im.media[0]["mediumgif"].url,
+          thumbnailUrl: im.media[0]["nanogif"].url,
+        }))
+      );
+    });
+  }, [tenorSearchParamsState]);
+
+  const performSearch = () => {
+    setTenorSearchParamsState({
       query,
       random: true,
       pos: currentSearchCursor,
     });
-    setCurrentSearchCursor(res.next);
-    setImageUrls(
-      res.results.map((im) => ({
-        realImageUrl: im.media[0]["mediumgif"].url,
-        thumbnailUrl: im.media[0]["nanogif"].url,
-      }))
-    );
+  };
+
+  const handleOmakase = async () => {
+    const osusume =
+      omakaseQueries[Math.floor(omakaseQueries.length * Math.random())];
+    setCurrentSearchCursor("");
+    setQuery(osusume);
+    setTenorSearchParamsState({ query: osusume, random: true, pos: "" });
   };
 
   return (
     <div className="tenor-adder">
       <input type="text" value={query} onChange={handleUpdateQuery} />
-      <button onClick={handleSearch}>Search</button>
+      <button onClick={performSearch}>{currentSearchCursor ? 'Next Page' : 'Search'}</button>
+      <button onClick={handleOmakase}>💡</button>
       <Images imageUrls={imageUrls} />
     </div>
   );
