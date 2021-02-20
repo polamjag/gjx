@@ -1,3 +1,8 @@
+:root {
+  --active-component-keyColor: #72ffbd;
+  --hover-component-keyColor: #1d91d4;
+}
+
 input:disabled,
 button:disabled {
   cursor: not-allowed;
@@ -12,6 +17,10 @@ input[type="text"] {
   padding: 0.3em;
   border-radius: 0.2em;
   margin-right: 0.3em;
+
+  &:hover {
+    border-color: var(--hover-component-keyColor);
+  }
 }
 
 button {
@@ -23,6 +32,13 @@ button {
   padding: 0.3em;
   border-radius: 0.2em;
   margin-right: 0.3em;
+
+  &:hover {
+    border-color: var(--hover-component-keyColor);
+  }
+  &:focus {
+    border-color: var(--active-component-keyColor);
+  }
 }
 
 input[type="radio"] {
@@ -36,9 +52,13 @@ input[type="radio"] {
   margin: 0;
   transition: 0.05s ease border;
 
+  &:hover {
+    border-color: var(--hover-component-keyColor);
+  }
+
   &.is-selected {
     appearance: none;
-    border: 7.5px solid #72ffbd;
+    border: 7.5px solid var(--active-component-keyColor);
   }
 
   & + label {
