@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { imagesState } from "../atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { imagesState, realtimeSyncMetaState } from "../atoms";
 import { FirebaseContext } from "../firebaseContext";
 
 export const RealtimeSynchronizer: React.FC<{}> = () => {
   const [images, setImages] = useRecoilState(imagesState);
+  const setRealtimeSyncMetaState = useSetRecoilState(realtimeSyncMetaState);
   const firebase = useContext(FirebaseContext);
 
   useEffect(() => {
@@ -19,14 +20,16 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
       .ref("sessions/")
       .on("value", (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
         if (!data) {
           return;
         }
 
         setImages(() => data.images);
+        setRealtimeSyncMetaState({
+          lastGotEpoch: Date.now()
+        })
       });
-  }, [firebase, setImages]);
+  }, [firebase, setImages, setRealtimeSyncMetaState]);
 
   return <></>;
 };

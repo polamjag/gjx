@@ -9,6 +9,7 @@ import { ImagesList } from "./components/ImagesList";
 import { SwitchingStrategySelector } from "./components/SwitchingStrategySelector";
 import { Switcher } from "./components/Switcher";
 import { TenorAdder } from "./components/TenorAdder";
+import { SyncIndicator } from "./components/SyncIndicator";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { Arena } from "./components/Arena";
 
@@ -37,6 +38,7 @@ const App: React.FC<{
           }}
         >
           <RealtimeSynchronizer />
+          <SyncIndicator />
 
           <div className={showControllers ? "controllers" : "no-controllers"}>
             <ImagesList />

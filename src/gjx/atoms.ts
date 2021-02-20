@@ -90,3 +90,10 @@ export const switchingStrategyState = selector<AppState["switchingStrategy"]>({
     }
   },
 });
+
+export const realtimeSyncMetaState = atom<{ lastGotEpoch: number }>({
+  key: "syncMeta",
+  default: {
+    lastGotEpoch: 0,
+  },
+});
