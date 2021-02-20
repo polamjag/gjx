@@ -135,7 +135,6 @@ const ManualSwitcher: React.FC<{}> = () => {
         step={0.01}
         onChange={onChange}
         onMouseUp={change}
-        onTouchEnd={change}
       />
     </div>
   );
