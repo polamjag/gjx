@@ -86,13 +86,6 @@ export const TenorAdder: React.FC<{}> = () => {
     undefined | { query: string; random: boolean; pos: string }
   >(undefined);
 
-  const handleUpdateQuery = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>): void => {
-    setQuery(value);
-    setCurrentSearchCursor("");
-  };
-
   useEffect(() => {
     if (!tenorSearchParamsState) {
       return;
@@ -100,15 +93,17 @@ export const TenorAdder: React.FC<{}> = () => {
 
     setGotError(false);
 
-    searchTenor(tenorSearchParamsState).then((res) => {
-      setCurrentSearchCursor(res.next);
-      setImageUrls(
-        res.results.map((im) => ({
-          realImageUrl: im.media[0]["mediumgif"].url,
-          thumbnailUrl: im.media[0]["nanogif"].url,
-        }))
-      );
-    }).catch(() => setGotError(true));
+    searchTenor(tenorSearchParamsState)
+      .then((res) => {
+        setCurrentSearchCursor(res.next);
+        setImageUrls(
+          res.results.map((im) => ({
+            realImageUrl: im.media[0]["mediumgif"].url,
+            thumbnailUrl: im.media[0]["nanogif"].url,
+          }))
+        );
+      })
+      .catch(() => setGotError(true));
   }, [tenorSearchParamsState]);
 
   const performSearch = () => {
@@ -117,6 +112,21 @@ export const TenorAdder: React.FC<{}> = () => {
       random: true,
       pos: currentSearchCursor,
     });
+  };
+
+  const handleUpdateQuery = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>): void => {
+    setQuery(value);
+    setCurrentSearchCursor("");
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = ({
+    key,
+  }) => {
+    if (key === "Enter") {
+      performSearch();
+    }
   };
 
   const handleOmakase = async () => {
@@ -129,13 +139,21 @@ export const TenorAdder: React.FC<{}> = () => {
 
   return (
     <div className="tenor-adder">
-      <input type="text" value={query} onChange={handleUpdateQuery} placeholder="Search GIFs" />
-      <button onClick={performSearch}>{currentSearchCursor && imageUrls.length ? 'Next Page' : 'Search'}</button>
-      <button onClick={handleOmakase} title="Omakase">💡</button>
+      <input
+        type="text"
+        value={query}
+        onChange={handleUpdateQuery}
+        onKeyDown={handleKeyDown}
+        placeholder="Search GIFs"
+      />
+      <button onClick={performSearch}>
+        {currentSearchCursor && imageUrls.length ? "Next Page" : "Search"}
+      </button>
+      <button onClick={handleOmakase} title="Omakase">
+        💡
+      </button>
       <Images imageUrls={imageUrls} />
-      {gotError && <div>
-        Got Error
-        </div>}
+      {gotError && <div>Got Error</div>}
     </div>
   );
 };
