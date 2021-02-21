@@ -136,7 +136,7 @@ const TapToBPM: React.FC<{ setIntervalMs: (interval: number) => void }> = ({
 
   return (
     <>
-      <button onClick={handleTap}>Tap BPM</button>
+      <button onClick={handleTap} className="tap-clap-button">Tap BPM</button>
       {detectedBPM ? detectedBPM.toFixed(2) : "-"}
     </>
   );

@@ -87,6 +87,7 @@ export const TenorAdder: React.FC<{}> = () => {
   const [tenorSearchParamsState, setTenorSearchParamsState] = useState<
     undefined | { query: string; random: boolean; pos: string }
   >(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (!tenorSearchParamsState) {
@@ -94,6 +95,7 @@ export const TenorAdder: React.FC<{}> = () => {
     }
 
     setGotError(false);
+    setIsLoading(true);
 
     searchTenor(tenorSearchParamsState)
       .then((res) => {
@@ -105,7 +107,8 @@ export const TenorAdder: React.FC<{}> = () => {
           }))
         );
       })
-      .catch(() => setGotError(true));
+      .catch(() => setGotError(true))
+      .finally(() => setIsLoading(false));
   }, [tenorSearchParamsState]);
 
   const performSearch = () => {
@@ -148,8 +151,16 @@ export const TenorAdder: React.FC<{}> = () => {
         onKeyDown={handleKeyDown}
         placeholder="Search GIFs"
       />
-      <button onClick={performSearch}>
-        {currentSearchCursor && imageUrls.length ? "Next Page" : "Search"}
+      <button
+        onClick={performSearch}
+        disabled={isLoading}
+        style={isLoading ? { cursor: "wait" } : {}}
+      >
+        {isLoading
+          ? "Loading..."
+          : currentSearchCursor && imageUrls.length
+          ? "Next Page"
+          : "Search"}
       </button>
       <button onClick={handleOmakase} title="Omakase">
         💡
