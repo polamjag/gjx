@@ -73,6 +73,7 @@ const omakaseQueries = [
   "pixelart",
   "initial d",
   "wangan midnight",
+  "beatmania",
 ];
 
 export const TenorAdder: React.FC<{}> = () => {
@@ -153,7 +154,7 @@ export const TenorAdder: React.FC<{}> = () => {
       />
       <button
         onClick={performSearch}
-        disabled={isLoading}
+        disabled={isLoading || !query}
         style={isLoading ? { cursor: "wait" } : {}}
       >
         {isLoading
