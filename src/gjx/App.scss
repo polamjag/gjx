@@ -85,11 +85,13 @@ input[type="range"] {
 
 .tap-clap-button {
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👐</text></svg>")
-  16 0, auto;
+      16 0,
+    auto;
 
   &:active {
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👏</text></svg>")
-    16 0, auto;
+        16 0,
+      auto;
   }
 }
 
@@ -171,7 +173,7 @@ input[type="range"] {
   margin: 0.4em 0 0;
 
   .switching-strategy-selector__strategy {
-    margin-right: .6em;
+    margin-right: 0.6em;
   }
 }
 
@@ -181,7 +183,7 @@ input[type="range"] {
 
 .switcher__interval {
   .switcher__interval__value-label {
-    margin: 0 .3em;
+    margin: 0 0.3em;
   }
 }
 
