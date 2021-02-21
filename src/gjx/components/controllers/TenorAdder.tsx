@@ -40,7 +40,7 @@ const searchTenor = async ({
     await fetch(
       `https://g.tenor.com/v1/${path}?q=${encodeURIComponent(
         query
-      )}&key=LIVDSRZULELA&limit=${limit}&contentfilter=medium&pos=${pos}`
+      )}&key=LIVDSRZULELA&limit=${limit}&contentfilter=medium&pos=${pos}&locale=ja_JP`
     )
   ).json();
 };
