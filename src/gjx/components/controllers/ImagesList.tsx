@@ -1,11 +1,12 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-import { imagesState } from "../../atoms";
+import { imagesState, selectedImageState } from "../../atoms";
 import { ThumbnailWithAction } from "../molecures/ThumbnailWithAction";
 
 export const ImagesList: React.FC<{}> = () => {
   const [images, setImagesState] = useRecoilState(imagesState);
+  const selectedImage = useRecoilValue(selectedImageState);
 
   const deleteImageByKey = (key: string): void => {
     const newImages = { ...images };
@@ -21,7 +22,7 @@ export const ImagesList: React.FC<{}> = () => {
     <>
       <ul className="images-list">
         {Object.entries(images).map(([id, image]) => (
-          <li key={id}>
+          <li key={id} className={selectedImage === image ? 'selected' : ''}>
             <ThumbnailWithAction
               thumbnailUrl={image}
               buttonLabel="x"

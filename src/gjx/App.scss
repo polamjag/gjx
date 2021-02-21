@@ -142,6 +142,20 @@ input[type="range"] {
     height: 40px;
     width: 71px;
 
+    &.selected {
+      border-bottom: 4px solid var(--active-component-keyColor);
+      animation: indicatorBlink .5s ease-out .4s infinite;
+
+      @keyframes indicatorBlink {
+        0% {
+          border-bottom: 4px solid var(--active-component-keyColor)
+        }
+        100% {
+          border-bottom: 4px solid transparent;
+        }
+      }
+    }
+
     &:nth-child(4n) {
       margin-right: 8px;
     }
