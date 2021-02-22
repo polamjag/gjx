@@ -18,16 +18,29 @@ export const OverlayMixer: React.FC<{}> = () => {
     }));
   };
 
+  const handleRandomBlendMode = () => {
+    const newBlendMode =
+      blendModes[Math.floor(Math.random() * blendModes.length)];
+    setCompositionInfo((prevState) => ({
+      ...prevState,
+      blendMode: newBlendMode,
+    }));
+  };
+
   return (
-    <div>
+    <div className="overlay-mixer">
+      <span>Blend Mode </span>
       <select
         value={compositionInfo.blendMode}
         onChange={handleOnChangeBlendMode}
       >
         {blendModes.map((blendMode) => (
-          <option value={blendMode} key={blendMode}>{blendMode}</option>
+          <option value={blendMode} key={blendMode}>
+            {blendMode}
+          </option>
         ))}
       </select>
+      <button onClick={handleRandomBlendMode}>🔀</button>
     </div>
   );
 };
