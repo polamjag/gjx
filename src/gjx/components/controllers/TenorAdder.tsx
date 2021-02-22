@@ -212,6 +212,7 @@ export const TenorAdder: React.FC<{}> = () => {
             type="checkbox"
             name="isRandom"
             id="tenor-moreoptions-israndom"
+            checked={tenorSearchParamsState.random}
             onChange={handleIsRandomChange}
           />
           <label htmlFor="tenor-moreoptions-israndom">Random?</label>
