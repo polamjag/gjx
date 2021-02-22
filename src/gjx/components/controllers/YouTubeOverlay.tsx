@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DefaultValue, selector, useRecoilState } from "recoil";
+
 import { overlayStrategyState, SyncedAppState } from "../../atoms";
 
 const youtubeVideoIdRegex = [
