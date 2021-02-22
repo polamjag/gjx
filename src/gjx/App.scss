@@ -344,7 +344,7 @@ input[type="range"] {
   width: 0px;
   height: 0px;
   border: 6px solid rgb(92, 199, 49);
-  border-radius: 6px;
+  border-radius: 50%;
   mix-blend-mode: hard-light;
 
   &.sync-indicator__fresh {
