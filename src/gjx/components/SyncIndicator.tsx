@@ -21,6 +21,6 @@ export const SyncIndicator: React.FC<{}> = () => {
   });
 
   return (
-    <div className="sync-indicator" style={{ opacity: indicatorOpacity }}></div>
+    <div className={`sync-indicator sync-indicator__${syncMeta.synchronizationState}`} style={{ opacity: indicatorOpacity }}></div>
   );
 };

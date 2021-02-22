@@ -346,6 +346,10 @@ input[type="range"] {
   border: 6px solid rgb(92, 199, 49);
   border-radius: 6px;
   mix-blend-mode: hard-light;
+
+  &.sync-indicator__fresh {
+    border-color: yellow;
+  }
 }
 
 .splash-screen {
