@@ -50,6 +50,10 @@ button {
   margin-right: 0.3em;
   line-height: 1.2em;
 
+  &:disabled {
+    border-color: rgb(56, 56, 56);
+  }
+
   &:hover {
     border-color: var(--hover-component-keyColor);
   }
