@@ -1,6 +1,7 @@
 import { atom, DefaultValue, selector } from "recoil";
 
 import {
+  CompositionInfo,
   OverlayStrategies,
   OverlayStrategyName,
   SwitchingStrategies,
@@ -15,6 +16,7 @@ export interface SyncedAppState {
 
   activeOverlayStrategyName: OverlayStrategyName;
   overlayStrategy: OverlayStrategies;
+  overlayComposition: CompositionInfo;
 }
 
 export const defaultState: SyncedAppState = {
@@ -47,6 +49,10 @@ export const defaultState: SyncedAppState = {
       state: {},
     },
   },
+  overlayComposition: {
+    blendMode: 'overlay',
+    opacity: 1,
+  }
 };
 
 export const syncedAppState = atom<SyncedAppState>({
@@ -141,6 +147,25 @@ export const overlayStrategyState = selector<SyncedAppState["overlayStrategy"]>(
         return set(syncedAppState, (prevValue) => ({
           ...prevValue,
           overlayStrategy: newValue,
+        }));
+      }
+    },
+  }
+);
+
+export const overlayCompositionState = selector<SyncedAppState["overlayComposition"]>(
+  {
+    key: "filteredOverlayComposition",
+    get: ({ get }) => {
+      const app = get(syncedAppState);
+
+      return app.overlayComposition;
+    },
+    set: ({ set }, newValue) => {
+      if (!(newValue instanceof DefaultValue)) {
+        return set(syncedAppState, (prevValue) => ({
+          ...prevValue,
+          overlayComposition: newValue,
         }));
       }
     },
