@@ -4,7 +4,7 @@
 }
 
 code {
-  font-family: '.SF Mono', Menlo, Consolas;
+  font-family: ".SF Mono", Menlo, Consolas;
 }
 
 input:disabled,
@@ -292,7 +292,7 @@ input[type="range"] {
   user-select: none;
 
   .splash-screen__title {
-    letter-spacing: .014em;
+    letter-spacing: 0.014em;
     font-size: 3em;
     opacity: 0.4;
     font-weight: 900;
@@ -315,8 +315,8 @@ input[type="range"] {
     opacity: 0.8;
     font-size: 1rem;
     font-weight: normal;
-    animation: splashScreenError .85s ease-out 0s infinite;
-    margin-top: .2em;
+    animation: splashScreenError 0.85s ease-out 0s infinite;
+    margin-top: 0.2em;
     line-height: 1.34em;
 
     code {
