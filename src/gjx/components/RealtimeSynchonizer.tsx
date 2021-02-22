@@ -25,10 +25,10 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           return;
         }
 
-        setRealtimeSyncMetaState((old) => ({ ...old, needsToSync: false }));
+        setRealtimeSyncMetaState((old) => ({ ...old, canSendStateToRemote: false }));
         setAppState(() => ({ ...defaultState, ...data.appState }));
         setRealtimeSyncMetaState({
-          needsToSync: true,
+          canSendStateToRemote: true,
           lastGotEpoch: Date.now(),
           initialStateSynced: true,
         });
@@ -40,7 +40,7 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
       return;
     }
 
-    if (realtimeSyncMeta.needsToSync) {
+    if (realtimeSyncMeta.canSendStateToRemote) {
       firebase?.database().ref("sessions/").set({
         appState,
       });
@@ -61,11 +61,11 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           return;
         }
 
-        setRealtimeSyncMetaState((old) => ({ ...old, needsToSync: false }));
+        setRealtimeSyncMetaState((old) => ({ ...old, canSendStateToRemote: false }));
         setAppState(() => ({ ...defaultState, ...data.appState }));
         setRealtimeSyncMetaState((prevState) => ({
           ...prevState,
-          needsToSync: true,
+          canSendStateToRemote: true,
           lastGotEpoch: Date.now(),
         }));
       });

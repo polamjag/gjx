@@ -99,12 +99,12 @@ export const selectedImageState = atom<string | undefined>({
 export const realtimeSyncMetaState = atom<{
   initialStateSynced: boolean;
   lastGotEpoch: number;
-  needsToSync: boolean;
+  canSendStateToRemote: boolean;
 }>({
   key: "syncMeta",
   default: {
     initialStateSynced: false,
     lastGotEpoch: -1,
-    needsToSync: true,
+    canSendStateToRemote: true,
   },
 });
