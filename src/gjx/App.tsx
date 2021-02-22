@@ -6,16 +6,17 @@ import { RecoilRoot } from "recoil";
 import { defaultState, syncedAppState } from "./atoms";
 import { Arena } from "./components/Arena";
 import { AddImageForm } from "./components/controllers/AddImageForm";
-import { ControllerSection } from "./components/molecures/ControllerSection";
 import { ImagesList } from "./components/controllers/ImagesList";
 import { Switcher } from "./components/controllers/Switcher";
 import { SwitchingStrategySelector } from "./components/controllers/SwitchingStrategySelector";
 import { TenorAdder } from "./components/controllers/TenorAdder";
+import { ControllerSection } from "./components/molecures/ControllerSection";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { SyncIndicator } from "./components/SyncIndicator";
 import { FirebaseContext } from "./firebaseContext";
 
 import type firebase from "firebase";
+
 const App: React.FC<{
   firebase: ReturnType<typeof firebase.initializeApp>;
   initialState: any;
