@@ -1,12 +1,20 @@
 import { atom, DefaultValue, selector } from "recoil";
 
-import { SwitchingStrategies, SwitchingStrategyName } from "./types";
+import {
+  OverlayStrategies,
+  OverlayStrategyName,
+  SwitchingStrategies,
+  SwitchingStrategyName,
+} from "./types";
 
 export interface SyncedAppState {
   images: { [key: string]: string };
 
   activeSwitchingStrategyName: SwitchingStrategyName;
   switchingStrategy: SwitchingStrategies;
+
+  activeOverlayStrategyName: OverlayStrategyName;
+  overlayStrategy: OverlayStrategies;
 }
 
 export const defaultState: SyncedAppState = {
@@ -25,6 +33,18 @@ export const defaultState: SyncedAppState = {
       state: {
         index: 0,
       },
+    },
+  },
+
+  activeOverlayStrategyName: 'empty',
+  overlayStrategy: {
+    empty: {
+      name: 'empty',
+      state: {},
+    },
+    youtubeEmbed: {
+      name: "youtubeEmbed",
+      state: {},
     },
   },
 };
@@ -88,6 +108,44 @@ export const switchingStrategyState = selector<
     }
   },
 });
+
+export const activeOverlayStrategyNameState = selector<
+  SyncedAppState["activeOverlayStrategyName"]
+>({
+  key: "filteredActiveOverlayStrategy",
+  get: ({ get }) => {
+    const app = get(syncedAppState);
+
+    return app.activeOverlayStrategyName;
+  },
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      return set(syncedAppState, (prevValue) => ({
+        ...prevValue,
+        activeOverlayStrategyName: newValue,
+      }));
+    }
+  },
+});
+
+export const overlayStrategyState = selector<SyncedAppState["overlayStrategy"]>(
+  {
+    key: "filteredOverlayStrategy",
+    get: ({ get }) => {
+      const app = get(syncedAppState);
+
+      return app.overlayStrategy;
+    },
+    set: ({ set }, newValue) => {
+      if (!(newValue instanceof DefaultValue)) {
+        return set(syncedAppState, (prevValue) => ({
+          ...prevValue,
+          overlayStrategy: newValue,
+        }));
+      }
+    },
+  }
+);
 
 // local states
 

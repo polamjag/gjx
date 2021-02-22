@@ -8,9 +8,11 @@ import { realtimeSyncMetaState } from "./atoms";
 import { Arena } from "./components/Arena";
 import { AddImageForm } from "./components/controllers/AddImageForm";
 import { ImagesList } from "./components/controllers/ImagesList";
+import { OverlayStrategySelector } from "./components/controllers/OverlayStrategySelector";
 import { Switcher } from "./components/controllers/Switcher";
 import { SwitchingStrategySelector } from "./components/controllers/SwitchingStrategySelector";
 import { TenorAdder } from "./components/controllers/TenorAdder";
+import { YouTubeOverlay } from "./components/controllers/YouTubeOverlay";
 import { ControllerSection } from "./components/molecures/ControllerSection";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { SyncIndicator } from "./components/SyncIndicator";
@@ -63,6 +65,13 @@ const Workspace: React.FC<{ showControllers: boolean }> = ({
 
           <ControllerSection title="Tenor">
             <TenorAdder />
+          </ControllerSection>
+
+          <ControllerSection title="Takeoverlay™">
+            <OverlayStrategySelector />
+            <ControllerSection title="YouTube">
+              <YouTubeOverlay />
+            </ControllerSection>
           </ControllerSection>
         </div>
 
