@@ -3,7 +3,7 @@ import "./index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./gjx/App";
+import GJXApp from "./gjx/GJXApp";
 import reportWebVitals from "./reportWebVitals";
 
 const firebaseConfig = {
@@ -15,7 +15,7 @@ const firebaseConfig = {
 (async () => {
   ReactDOM.render(
     <React.StrictMode>
-      <App firebaseConfig={firebaseConfig} />
+      <GJXApp firebaseConfig={firebaseConfig} />
     </React.StrictMode>,
     document.getElementById("root")
   );

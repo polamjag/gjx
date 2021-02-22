@@ -18,7 +18,7 @@ import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { SyncIndicator } from "./components/SyncIndicator";
 import { WithFirebase } from "./components/WithFirebase";
 
-const App: React.FC<{
+const GJXApp: React.FC<{
   firebaseConfig: Object;
 }> = ({ firebaseConfig }) => {
   const [showControllers, setShowControllers] = useState<boolean>(true);
@@ -97,4 +97,4 @@ const Dancefloor: React.FC<{ showControllers: boolean }> = ({
   }
 };
 
-export default App;
+export default GJXApp;

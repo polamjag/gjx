@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import GJXApp from './GJXApp';
 
 test('renders learn react link', () => {
-  render(<App />);
+  render(<GJXApp />);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
