@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { DefaultValue, selector, useRecoilState, useRecoilValue } from "recoil";
 
 import {
@@ -130,11 +130,11 @@ const TapToBPM: React.FC<{ setIntervalMs: (interval: number) => void }> = ({
     setTappedTimestamps([...tappedTimestamps.slice(-15), Date.now()]);
   };
 
-  useEffect(() => {
+  useCallback(() => {
     if (tappedTimestamps.length > 4) {
       setIntervalMs((60 / detectedBPM) * 1000);
     }
-  }, [tappedTimestamps, detectedBPM]);
+  }, [tappedTimestamps, setIntervalMs, detectedBPM]);
 
   return (
     <>
