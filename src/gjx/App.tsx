@@ -48,7 +48,7 @@ const Surface: React.FC<{ showControllers: boolean }> = ({
 }) => {
   const realtimeSyncMeta = useRecoilValue(realtimeSyncMetaState);
 
-  if (realtimeSyncMeta.initialStateSynced) {
+  if (realtimeSyncMeta.synchronizationState !== 'fresh') {
     return (
       <>
         <div className={showControllers ? "controllers" : "no-controllers"}>

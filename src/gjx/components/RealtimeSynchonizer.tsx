@@ -15,6 +15,7 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
     if (!firebase) {
       return;
     }
+
     firebase
       .database()
       .ref("sessions/")
@@ -30,13 +31,13 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
         setRealtimeSyncMetaState({
           canSendStateToRemote: true,
           lastGotEpoch: Date.now(),
-          initialStateSynced: true,
+          synchronizationState: 'gotInitialState',
         });
       });
   }, [firebase, setAppState, setRealtimeSyncMetaState]);
 
   useEffect(() => {
-    if (!realtimeSyncMeta.initialStateSynced) {
+    if (realtimeSyncMeta.synchronizationState === 'fresh') {
       return;
     }
 
@@ -48,7 +49,7 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
   }, [firebase, appState, realtimeSyncMeta]);
 
   useEffect(() => {
-    if (!realtimeSyncMeta.initialStateSynced) {
+    if (realtimeSyncMeta.synchronizationState === 'fresh') {
       return;
     }
 
@@ -69,7 +70,7 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           lastGotEpoch: Date.now(),
         }));
       });
-  }, [firebase, setAppState, realtimeSyncMeta.initialStateSynced, setRealtimeSyncMetaState]);
+  }, [firebase, setAppState, realtimeSyncMeta.synchronizationState, setRealtimeSyncMetaState]);
 
   return <></>;
 };
