@@ -8,6 +8,7 @@ import {
   SyncedAppState,
 } from "../../../atoms";
 import {
+  calculateBeatIntervalMsFromBPM,
   calculateBPM,
   calculateBPMFromBeatInterval,
 } from "../../../utils/calculateBPM";
@@ -112,9 +113,7 @@ const TapToBPM: React.FC<{ setIntervalMs: (interval: number) => void }> = ({
   setIntervalMs,
 }) => {
   const [tappedTimestamps, setTappedTimestamps] = useState<number[]>([]);
-
-  const detectedBPM =
-    tappedTimestamps.length > 1 ? calculateBPM(tappedTimestamps) : 0;
+  const [bpm, setBPM] = useState<number | undefined>(undefined);
 
   const handleTap = () => {
     const now = Date.now();
@@ -123,25 +122,29 @@ const TapToBPM: React.FC<{ setIntervalMs: (interval: number) => void }> = ({
       return;
     }
     if (now - tappedTimestamps[tappedTimestamps.length - 1] > 2000) {
+      setBPM(undefined);
       setTappedTimestamps([now]);
       return;
     }
 
-    setTappedTimestamps([...tappedTimestamps.slice(-15), Date.now()]);
-  };
+    const timestamps = [...tappedTimestamps.slice(-15), Date.now()];
+    setTappedTimestamps(timestamps);
 
-  useCallback(() => {
-    if (tappedTimestamps.length > 4) {
-      setIntervalMs((60 / detectedBPM) * 1000);
+    const bpm = calculateBPM(timestamps);
+    if (tappedTimestamps.length > 0) {
+      setBPM(bpm)
     }
-  }, [tappedTimestamps, setIntervalMs, detectedBPM]);
+    if (tappedTimestamps.length > 4) {
+      setIntervalMs(calculateBeatIntervalMsFromBPM(bpm));
+    }
+  };
 
   return (
     <>
       <button onClick={handleTap} className="tap-clap-button">
         Tap BPM
       </button>
-      {detectedBPM ? detectedBPM.toFixed(2) : "-"}
+      {bpm ? bpm.toFixed(2) : "-"}
     </>
   );
 };
