@@ -100,7 +100,9 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
       <iframe
         width="100%"
         height="100%"
-        src={`https://www.youtube.com/embed/${encodeURIComponent(videoId)}?autoplay=0&loop=1&disablekb=1&enablejsapi=1&controls=0&playsinline=1`}
+        src={`https://www.youtube.com/embed/${encodeURIComponent(
+          videoId
+        )}?autoplay=0&loop=1&disablekb=1&enablejsapi=1&controls=0&playsinline=1`}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         title="youtube embed"
