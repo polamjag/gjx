@@ -11,7 +11,7 @@ import { OverlayMixer } from "./components/controllers/OverlayMixer";
 import { OverlayStrategySelector } from "./components/controllers/OverlayStrategySelector";
 import { Switcher } from "./components/controllers/Switcher";
 import { SwitchingStrategySelector } from "./components/controllers/SwitchingStrategySelector";
-import { TenorAdder } from "./components/controllers/TenorAdder";
+import { TenorPicker } from "./components/controllers/TenorPicker";
 import { YouTubeOverlay } from "./components/controllers/YouTubeOverlay";
 import { ControllerSection } from "./components/molecures/ControllerSection";
 import { Projector } from "./components/Projector";
@@ -68,7 +68,7 @@ const Dancefloor: React.FC<{ showControllers: boolean }> = ({
             </ControllerSection>
 
             <ControllerSection title="Tenor">
-              <TenorAdder />
+              <TenorPicker />
             </ControllerSection>
           </ControllerSection>
 

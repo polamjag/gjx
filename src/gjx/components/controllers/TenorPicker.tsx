@@ -79,7 +79,7 @@ const omakaseQueries = [
   "hexeosis",
 ];
 
-export const TenorAdder: React.FC<{}> = () => {
+export const TenorPicker: React.FC<{}> = () => {
   const [query, setQuery] = useState<string>("");
   const [imageUrls, setImageUrls] = useState<
     Array<{ thumbnailUrl: string; realImageUrl: string }>
