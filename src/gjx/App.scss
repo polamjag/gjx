@@ -199,6 +199,7 @@ details summary {
     display: inline-block;
     height: 40px;
     width: 71px;
+    border-bottom: 4px solid transparent;
 
     &.selected {
       border-bottom: 4px solid var(--active-component-keyColor);
