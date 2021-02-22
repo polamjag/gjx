@@ -50,6 +50,14 @@ export const YouTubeOverlay: React.FC<{}> = () => {
     setUrlValue(value);
   };
 
+  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = ({
+    key,
+  }) => {
+    if (key === "Enter") {
+      handleSetVideo();
+    }
+  };
+
   const handleSetVideo = () => {
     const videoId = extractVideoIdFromYouTubeUrl(urlValue);
     if (videoId) {
@@ -68,6 +76,7 @@ export const YouTubeOverlay: React.FC<{}> = () => {
         placeholder="youtube.com/watch?v=hoge"
         value={urlValue}
         onChange={handleUrlChange}
+        onKeyDown={handleKeyDown}
         size={33}
       />
       <button onClick={handleSetVideo} disabled={!urlValue}>
