@@ -157,6 +157,9 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
         playerRef.current?.playVideo && playerRef.current?.playVideo();
       });
     }
+    // initentionally ignore overlayStrategy.youtubeEmbed.state?.relativeRoughSeekPosition as dependency
+    // in order to avoid infinite-loop in sync
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoId, yt]);
 
   const windowSize = useContext(WindowSizeContext);
