@@ -187,12 +187,20 @@ input[type="range"] {
   }
 }
 
-.tenor-adder h3 {
+.tenor-adder {
   margin: 0 0 0.4em;
-}
 
-.tenor-search-results {
-  margin-top: 0.4em;
+  .tenor-search-results {
+    margin-top: 0.4em;
+  }
+
+  details {
+    margin: 0.3em 0.1em;
+
+    span {
+      margin-right: 0.6em;
+    }
+  }
 }
 
 .thumbnail-with-action {

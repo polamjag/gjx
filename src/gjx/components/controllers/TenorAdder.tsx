@@ -27,6 +27,7 @@ interface SearchTenorParams {
   limit?: number;
   random?: boolean;
   pos?: string;
+  locale: "ja_JP" | "en_US";
 }
 
 const searchTenor = async ({
@@ -34,13 +35,14 @@ const searchTenor = async ({
   limit = 5,
   random = false,
   pos,
+  locale = "ja_JP",
 }: SearchTenorParams): Promise<TenorSearchResponse> => {
   const path = random ? "random" : "search";
   return (
     await fetch(
       `https://g.tenor.com/v1/${path}?q=${encodeURIComponent(
         query
-      )}&key=LIVDSRZULELA&limit=${limit}&contentfilter=medium&pos=${pos}&locale=ja_JP`
+      )}&key=LIVDSRZULELA&limit=${limit}&contentfilter=medium&pos=${pos}&locale=${locale}`
     )
   ).json();
 };
@@ -74,6 +76,7 @@ const omakaseQueries = [
   "initial d",
   "wangan midnight",
   "beatmania",
+  "hexeosis",
 ];
 
 export const TenorAdder: React.FC<{}> = () => {
@@ -85,15 +88,25 @@ export const TenorAdder: React.FC<{}> = () => {
 
   const [currentSearchCursor, setCurrentSearchCursor] = useState<string>("");
 
-  const [tenorSearchParamsState, setTenorSearchParamsState] = useState<
-    undefined | { query: string; random: boolean; pos: string }
-  >(undefined);
+  const [tenorSearchParamsState, setTenorSearchParamsState] = useState<{
+    query: string;
+    random: boolean;
+    pos: string;
+    locale: "ja_JP" | "en_US";
+  }>({
+    query: "",
+    random: true,
+    pos: "",
+    locale: "ja_JP",
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (!tenorSearchParamsState) {
       return;
     }
+
+    if (!tenorSearchParamsState.query) { return; }
 
     setGotError(false);
     setIsLoading(true);
@@ -113,11 +126,11 @@ export const TenorAdder: React.FC<{}> = () => {
   }, [tenorSearchParamsState]);
 
   const performSearch = () => {
-    setTenorSearchParamsState({
+    setTenorSearchParamsState((prevState) => ({
+      ...prevState,
       query,
-      random: true,
       pos: currentSearchCursor,
-    });
+    }));
   };
 
   const handleUpdateQuery = ({
@@ -140,7 +153,33 @@ export const TenorAdder: React.FC<{}> = () => {
       omakaseQueries[Math.floor(omakaseQueries.length * Math.random())];
     setCurrentSearchCursor("");
     setQuery(osusume);
-    setTenorSearchParamsState({ query: osusume, random: true, pos: "" });
+    setTenorSearchParamsState((prevState) => ({
+      ...prevState,
+      query: osusume,
+      random: true,
+      pos: "",
+    }));
+  };
+
+  const handleIsRandomChange: React.ChangeEventHandler<HTMLInputElement> = ({
+    target: { checked },
+  }) => {
+    setTenorSearchParamsState((prevState) => ({
+      ...prevState,
+      query,
+      pos: currentSearchCursor,
+      random: checked,
+    }));
+  };
+  const handleLocaleChange: React.ChangeEventHandler<HTMLSelectElement> = ({
+    target: { value },
+  }) => {
+    setTenorSearchParamsState((prevState) => ({
+      ...prevState,
+      query,
+      pos: currentSearchCursor,
+      locale: value as "ja_JP" | "en_US",
+    }));
   };
 
   return (
@@ -166,6 +205,29 @@ export const TenorAdder: React.FC<{}> = () => {
       <button onClick={handleOmakase} title="Omakase">
         💡
       </button>
+      <details>
+        <summary>More Options</summary>
+        <span>
+          <input
+            type="checkbox"
+            name="isRandom"
+            id="tenor-moreoptions-israndom"
+            onChange={handleIsRandomChange}
+          />
+          <label htmlFor="tenor-moreoptions-israndom">Random?</label>
+        </span>
+        <span>
+          Locale
+          <select
+            name="locale"
+            onChange={handleLocaleChange}
+            defaultValue={tenorSearchParamsState.locale}
+          >
+            <option value="ja_JP">ja_JP</option>
+            <option value="en_US">en_US</option>
+          </select>
+        </span>
+      </details>
       <Images imageUrls={imageUrls} />
       {gotError && <div>Got Error</div>}
     </div>
