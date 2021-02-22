@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 
 import {
   activeOverlayStrategyNameState,
@@ -83,7 +83,10 @@ const Overlay: React.FC<{}> = () => {
   const overlayComposition = useRecoilValue(overlayCompositionState);
 
   return (
-    <div style={{ mixBlendMode: overlayComposition.blendMode }} className="arena--content--overlay-wrapper">
+    <div
+      style={{ mixBlendMode: overlayComposition.blendMode }}
+      className="arena--content--overlay-wrapper"
+    >
       <OverlayForStrategyName overlayStrategyName={activeOverlayStrategyName} />
     </div>
   );
@@ -114,7 +117,9 @@ const YouTubePlayerContainer: React.FC<{
 const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
   // https://developers.google.com/youtube/iframe_api_reference
 
-  const [overlayStrategy, setOverlayStrategy] = useRecoilState(overlayStrategyState);
+  const [overlayStrategy, setOverlayStrategy] = useRecoilState(
+    overlayStrategyState
+  );
 
   const yt = useRecoilValue(youtubeIframeApiState);
   const playerRef = useRef<YT.Player | undefined>(undefined);
@@ -136,7 +141,8 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
             event.target.setLoop(true);
             event.target.mute();
             const duration = event.target.getDuration();
-            const relativePos = overlayStrategy.youtubeEmbed.state?.relativeRoughSeekPosition;
+            const relativePos =
+              overlayStrategy.youtubeEmbed.state?.relativeRoughSeekPosition;
             if (duration && relativePos) {
               event.target.seekTo(duration * relativePos, true);
             }
@@ -174,22 +180,23 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
       const time = playerRef.current?.getCurrentTime();
       const duration = playerRef.current?.getDuration();
 
-      if (!time || !duration) { return }
+      if (!time || !duration) {
+        return;
+      }
 
-      setOverlayStrategy(prevState => ({
+      setOverlayStrategy((prevState) => ({
         ...prevState,
         youtubeEmbed: {
-          name: 'youtubeEmbed' as const,
+          name: "youtubeEmbed" as const,
           state: {
             videoId,
             relativeRoughSeekPosition: time / duration,
-          }
-        }
-      }))
-      
-    }, 10000)
+          },
+        },
+      }));
+    }, 10000);
     return () => window.clearInterval(timer);
-  }, [setOverlayStrategy, videoId])
+  }, [setOverlayStrategy, videoId]);
 
   return (
     <>
