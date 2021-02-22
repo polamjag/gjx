@@ -3,8 +3,8 @@ import { DefaultValue, selector, useRecoilState } from "recoil";
 import { overlayStrategyState, SyncedAppState } from "../../atoms";
 
 const youtubeVideoIdRegex = [
-  /youtube\.com\/watch\?v=(\w+)/,
-  /youtu\.be\/(\w+)/,
+  /youtube\.com\/watch\?v=([\w-]+)/,
+  /youtu\.be\/([\w-]+)/,
 ];
 
 const extractVideoIdFromYouTubeUrl = (url: string): string | null => {
@@ -19,7 +19,7 @@ const extractVideoIdFromYouTubeUrl = (url: string): string | null => {
   return foundVideoId;
 };
 
-const embedState = selector<
+const youtubeEmbedStrategyState = selector<
   SyncedAppState["overlayStrategy"]["youtubeEmbed"]["state"]
 >({
   key: "youtubeEmbedState",
@@ -41,7 +41,7 @@ const embedState = selector<
 });
 export const YouTubeOverlay: React.FC<{}> = () => {
   const [urlValue, setUrlValue] = useState<string>("");
-  const [astate, setAstate] = useRecoilState(embedState);
+  const [ytState, setYtState] = useRecoilState(youtubeEmbedStrategyState);
 
   const handleUrlChange: React.ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
@@ -51,20 +51,43 @@ export const YouTubeOverlay: React.FC<{}> = () => {
 
   useEffect(() => {
     if (urlValue === "") {
-      setAstate({ videoId: "" });
+      setYtState({ videoId: "" });
     }
     const videoId = extractVideoIdFromYouTubeUrl(urlValue);
     if (videoId) {
-      setAstate({ videoId });
+      setYtState({ videoId });
     }
-  }, [urlValue]);
+  }, [urlValue, setYtState]);
 
   return (
-    <input
-      type="text"
-      placeholder="youtube.com/watch?v=hoge"
-      value={urlValue}
-      onChange={handleUrlChange}
-    />
+    <div className="youtube-overlay">
+      <input
+        type="text"
+        placeholder="youtube.com/watch?v=hoge"
+        value={urlValue}
+        onChange={handleUrlChange}
+        size={33}
+      />
+      {ytState.videoId && (
+      <div className="youtube-overlay__thumbnail-preview">
+        <img
+          src={`https://img.youtube.com/vi/${ytState.videoId}/default.jpg`}
+          alt=""
+        />
+        <img
+          src={`https://img.youtube.com/vi/${ytState.videoId}/1.jpg`}
+          alt=""
+        />
+        <img
+          src={`https://img.youtube.com/vi/${ytState.videoId}/2.jpg`}
+          alt=""
+        />
+        <img
+          src={`https://img.youtube.com/vi/${ytState.videoId}/3.jpg`}
+          alt=""
+        />
+      </div>
+      )}
+    </div>
   );
 };

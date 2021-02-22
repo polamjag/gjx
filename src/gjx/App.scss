@@ -207,6 +207,18 @@ input[type="range"] {
   }
 }
 
+.youtube-overlay {
+  .youtube-overlay__thumbnail-preview {
+    margin-top: 0.8em;
+
+    img {
+      width: 80px;
+      height: 45px;
+      object-fit: cover;
+    }
+  }
+}
+
 .thumbnail-with-action {
   position: relative;
   display: inline-block;
@@ -235,11 +247,10 @@ input[type="range"] {
   }
 }
 
-.arena--content {
+@mixin arenaScreen {
   width: 100vw;
   height: 100vh;
   position: absolute;
-  z-index: -1;
   top: 0;
   left: 0;
   object-fit: cover;
@@ -247,6 +258,19 @@ input[type="range"] {
 
   user-select: none;
   pointer-events: none;
+}
+
+.arena--content {
+  @include arenaScreen();
+  z-index: -2;
+}
+
+.arena__overlay__youtubeEmbed {
+  @include arenaScreen();
+  z-index: -1;
+  mix-blend-mode: screen;
+  transform-origin: middle center;
+  transform: scale(1.2);
 }
 
 .sync-indicator {

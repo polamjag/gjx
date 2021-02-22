@@ -8,7 +8,7 @@ const strategies: Array<{ name: OverlayStrategyName; label: string }> = [
   { name: "empty", label: "No Overlay" },
   {
     name: "youtubeEmbed",
-    label: "YouTube Embed",
+    label: "📺 YouTube Embed",
   },
 ];
 

@@ -67,7 +67,7 @@ const Workspace: React.FC<{ showControllers: boolean }> = ({
             <TenorAdder />
           </ControllerSection>
 
-          <ControllerSection title="Takeoverlay™">
+          <ControllerSection title="Overlay">
             <OverlayStrategySelector />
             <ControllerSection title="YouTube">
               <YouTubeOverlay />
