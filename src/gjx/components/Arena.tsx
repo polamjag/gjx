@@ -60,7 +60,7 @@ const WithWindowSize: React.FC<{}> = ({ children }) => {
 const GIF: React.FC<{}> = () => {
   const image = useRecoilValue(selectedImageState);
 
-  return image ? <img className="arena--content" src={image} alt="" /> : <></>;
+  return image ? <img className="arena__content" src={image} alt="" /> : <></>;
 };
 
 const OverlayForStrategyName: React.FC<{
@@ -85,7 +85,7 @@ const Overlay: React.FC<{}> = () => {
   return (
     <div
       style={{ mixBlendMode: overlayComposition.blendMode }}
-      className="arena--content--overlay-wrapper"
+      className="arena__content__overlay-wrapper"
     >
       <OverlayForStrategyName overlayStrategyName={activeOverlayStrategyName} />
     </div>

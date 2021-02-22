@@ -324,12 +324,12 @@ input[type="range"] {
   pointer-events: none;
 }
 
-.arena--content {
+.arena__content {
   @include arenaScreen();
   z-index: -2;
 }
 
-.arena--content--overlay-wrapper {
+.arena__content__overlay-wrapper {
   z-index: -1;
 }
 .arena__overlay__youtubeEmbed {
