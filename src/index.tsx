@@ -1,6 +1,5 @@
 import "./index.scss";
 
-import firebase from "firebase";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -18,12 +17,9 @@ const firebaseConfig = {
 };
 
 (async () => {
-  const fb = firebase.initializeApp(firebaseConfig);
-  const a = await fb.database().ref("sessions/").get();
-
   ReactDOM.render(
     <React.StrictMode>
-      <App firebase={fb} initialState={a.exportVal()} />
+      <App firebaseConfig={firebaseConfig} />
     </React.StrictMode>,
     document.getElementById("root")
   );

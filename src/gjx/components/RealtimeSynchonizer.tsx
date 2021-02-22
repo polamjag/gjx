@@ -12,6 +12,34 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
   const firebase = useContext(FirebaseContext);
 
   useEffect(() => {
+    if (!firebase) {
+      return;
+    }
+    firebase
+      .database()
+      .ref("sessions/")
+      .get()
+      .then((snapshot) => {
+        const data = snapshot.exportVal();
+        if (!data) {
+          return;
+        }
+
+        setRealtimeSyncMetaState((old) => ({ ...old, needsToSync: false }));
+        setAppState(() => ({ ...defaultState, ...data.appState }));
+        setRealtimeSyncMetaState({
+          needsToSync: true,
+          lastGotEpoch: Date.now(),
+          initialStateSynced: true,
+        });
+      });
+  }, [firebase, setAppState, setRealtimeSyncMetaState]);
+
+  useEffect(() => {
+    if (!realtimeSyncMeta.initialStateSynced) {
+      return;
+    }
+
     if (realtimeSyncMeta.needsToSync) {
       firebase?.database().ref("sessions/").set({
         appState,
@@ -20,6 +48,10 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
   }, [firebase, appState, realtimeSyncMeta]);
 
   useEffect(() => {
+    if (!realtimeSyncMeta.initialStateSynced) {
+      return;
+    }
+
     firebase
       ?.database()
       .ref("sessions/")
@@ -31,12 +63,13 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
 
         setRealtimeSyncMetaState((old) => ({ ...old, needsToSync: false }));
         setAppState(() => ({ ...defaultState, ...data.appState }));
-        setRealtimeSyncMetaState({
+        setRealtimeSyncMetaState((prevState) => ({
+          ...prevState,
           needsToSync: true,
           lastGotEpoch: Date.now(),
-        });
+        }));
       });
-  }, [firebase, setAppState, setRealtimeSyncMetaState]);
+  }, [firebase, setAppState, realtimeSyncMeta.initialStateSynced, setRealtimeSyncMetaState]);
 
   return <></>;
 };

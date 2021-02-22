@@ -1,9 +1,8 @@
 import "./App.scss";
 
 import React, { useEffect, useState } from "react";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useRecoilValue } from "recoil";
 
-import { defaultState, syncedAppState } from "./atoms";
 import { Arena } from "./components/Arena";
 import { AddImageForm } from "./components/controllers/AddImageForm";
 import { ImagesList } from "./components/controllers/ImagesList";
@@ -15,12 +14,12 @@ import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { SyncIndicator } from "./components/SyncIndicator";
 import { FirebaseContext } from "./firebaseContext";
 
-import type firebase from "firebase";
+import firebase from "firebase";
+import { realtimeSyncMetaState } from "./atoms";
 
 const App: React.FC<{
-  firebase: ReturnType<typeof firebase.initializeApp>;
-  initialState: any;
-}> = ({ firebase, initialState }) => {
+  firebaseConfig: Object;
+}> = ({ firebaseConfig }) => {
   const [showControllers, setShowControllers] = useState<boolean>(true);
   useEffect(() => {
     // eslint-disable-next-line no-restricted-globals
@@ -32,35 +31,65 @@ const App: React.FC<{
 
   return (
     <div className="App">
-      <FirebaseContext.Provider value={firebase}>
-        <RecoilRoot
-          initializeState={({ set }) => {
-            set(syncedAppState, { ...defaultState, ...initialState?.appState });
-          }}
-        >
+      <WithFirebase firebaseConfig={firebaseConfig}>
+        <RecoilRoot>
           <RealtimeSynchronizer />
           <SyncIndicator />
 
-          <div className={showControllers ? "controllers" : "no-controllers"}>
-            <ControllerSection title="Image Bin">
-              <ImagesList />
-              <AddImageForm />
-            </ControllerSection>
-
-            <ControllerSection title="Switcher">
-              <SwitchingStrategySelector />
-              <Switcher />
-            </ControllerSection>
-
-            <ControllerSection title="Tenor">
-              <TenorAdder />
-            </ControllerSection>
-          </div>
-
-          <Arena />
+          <Surface showControllers={showControllers} />
         </RecoilRoot>
-      </FirebaseContext.Provider>
+      </WithFirebase>
     </div>
+  );
+};
+
+const Surface: React.FC<{ showControllers: boolean }> = ({
+  showControllers,
+}) => {
+  const realtimeSyncMeta = useRecoilValue(realtimeSyncMetaState);
+
+  if (realtimeSyncMeta.initialStateSynced) {
+    return (
+      <>
+        <div className={showControllers ? "controllers" : "no-controllers"}>
+          <ControllerSection title="Image Bin">
+            <ImagesList />
+            <AddImageForm />
+          </ControllerSection>
+
+          <ControllerSection title="Switcher">
+            <SwitchingStrategySelector />
+            <Switcher />
+          </ControllerSection>
+
+          <ControllerSection title="Tenor">
+            <TenorAdder />
+          </ControllerSection>
+        </div>
+
+        <Arena />
+      </>
+    );
+  } else {
+    return <>syncing</>;
+  }
+};
+
+const WithFirebase: React.FC<{ firebaseConfig: Object }> = ({
+  firebaseConfig,
+  children,
+}) => {
+  const [firebaseApp, setFirebaseApp] = useState<undefined | firebase.app.App>(
+    undefined
+  );
+  useEffect(() => {
+    setFirebaseApp(firebase.initializeApp(firebaseConfig));
+  }, [firebaseConfig]);
+
+  return (
+    <FirebaseContext.Provider value={firebaseApp}>
+      {children}
+    </FirebaseContext.Provider>
   );
 };
 
