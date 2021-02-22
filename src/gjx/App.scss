@@ -119,8 +119,13 @@ input[type="range"] {
   user-select: none;
   display: inline-block;
   opacity: 0.5;
+
   max-width: 100vw;
   max-height: 90vh;
+  @media (max-width: 480px) {
+    max-height: 80vh;
+  }
+
   overflow: scroll;
   transition: all 0.15s ease 0s;
   text-shadow: 0 0 0.7em rgba(0, 0, 0, 0.5);
