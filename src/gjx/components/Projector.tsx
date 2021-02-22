@@ -8,10 +8,10 @@ import {
   selectedImageState,
 } from "../atoms";
 import { OverlayStrategyName } from "../types";
-import { WithWindowSize } from "./arena/WithWindowSize";
-import { YouTubeIframeApi, YouTubePlayerContainer } from "./arena/YouTubeEmbed";
+import { WithWindowSize } from "./projectors/WithWindowSize";
+import { YouTubeIframeApi, YouTubePlayerContainer } from "./projectors/YouTubeEmbed";
 
-export const Arena: React.FC<{}> = () => {
+export const Projector: React.FC<{}> = () => {
   return (
     <WithWindowSize>
       <YouTubeIframeApi />

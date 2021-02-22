@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { RecoilRoot, useRecoilValue } from "recoil";
 
 import { realtimeSyncMetaState } from "./atoms";
-import { Arena } from "./components/Arena";
 import { AddImageForm } from "./components/controllers/AddImageForm";
 import { ImagesList } from "./components/controllers/ImagesList";
 import { OverlayMixer } from "./components/controllers/OverlayMixer";
@@ -15,6 +14,7 @@ import { SwitchingStrategySelector } from "./components/controllers/SwitchingStr
 import { TenorAdder } from "./components/controllers/TenorAdder";
 import { YouTubeOverlay } from "./components/controllers/YouTubeOverlay";
 import { ControllerSection } from "./components/molecures/ControllerSection";
+import { Projector } from "./components/Projector";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { SyncIndicator } from "./components/SyncIndicator";
 import { FirebaseContext } from "./firebaseContext";
@@ -35,7 +35,7 @@ const App: React.FC<{
     <div className="App">
       <WithFirebase firebaseConfig={firebaseConfig}>
         <RecoilRoot>
-          <Workspace showControllers={showControllers} />
+          <Dancefloor showControllers={showControllers} />
 
           <RealtimeSynchronizer />
           <SyncIndicator />
@@ -45,7 +45,7 @@ const App: React.FC<{
   );
 };
 
-const Workspace: React.FC<{ showControllers: boolean }> = ({
+const Dancefloor: React.FC<{ showControllers: boolean }> = ({
   showControllers,
 }) => {
   const realtimeSyncMeta = useRecoilValue(realtimeSyncMetaState);
@@ -53,7 +53,7 @@ const Workspace: React.FC<{ showControllers: boolean }> = ({
   if (realtimeSyncMeta.synchronizationState !== "fresh") {
     return (
       <>
-        <Arena />
+        <Projector />
 
         <div className={showControllers ? "controllers" : "no-controllers"}>
           <ControllerSection title="GIF">
