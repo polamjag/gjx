@@ -1,7 +1,9 @@
 import "./Home.scss";
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+import logo from "./GJXLogo.svg";
 
 export const Home: React.FC<{}> = () => {
   const [projectId, setProjectId] = useState<string>("");
@@ -18,30 +20,38 @@ export const Home: React.FC<{}> = () => {
     setApiKey(value);
   };
 
+  const history = useHistory();
+
+  const handleStartSession = () => {
+    history.push(`/sessions/${projectId}/${apiKey}`);
+  };
+
   return (
     <div className="page__home">
+      <img src={logo} alt="" className="logo" />
       <h1>GJX: GIF JOCKEY X</h1>
       <div className="session-info-form">
         <input
           type="text"
           value={projectId}
           onChange={handleChangeProjectId}
-          placeholder="ultraProject-123ab"
+          placeholder="projectId-123ab"
           size={15}
         />
         <input
           type="text"
           value={apiKey}
           onChange={handleChangeApiKey}
-          placeholder="marvellousApiKey"
+          placeholder="superiorApiKey"
           size={15}
         />
-        <Link
-          to={`/sessions/${projectId}/${apiKey}`}
-          className="start-session button-like"
+        <button
+          className="start-session"
+          onClick={handleStartSession}
+          disabled={!(projectId && apiKey)}
         >
           Start Session
-        </Link>
+        </button>
       </div>
       <p>
         Please prepare your own Firebase project (with Realtime Database
