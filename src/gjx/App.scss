@@ -118,7 +118,7 @@ input[type="range"] {
 
 .controller-section {
   .controller-section__title {
-    margin: 0.6em 0 0.4em;
+    margin: 1em 0 0.7em;
     font-size: 1em;
     display: flex;
     align-items: center;
@@ -135,6 +135,21 @@ input[type="range"] {
 
   &:first-child .controller-section__title {
     margin-top: 0;
+  }
+
+  & & {
+    margin-left: 0.2em;
+    padding-left: 0.8em;
+    position: relative;
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+
+    .controller-section__title {
+      font-size: 0.9em;
+      margin-bottom: 0.7em;
+      &:after {
+        margin-left: 0.65em;
+      }
+    }
   }
 }
 

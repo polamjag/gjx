@@ -76,7 +76,7 @@ export const YouTubeOverlay: React.FC<{}> = () => {
       {ytState?.videoId && (
         <div className="youtube-overlay__current-state">
           <div className="youtube-overlay__getset">
-            Active:{" "}
+            Active:
             <a
               href={`https://youtube.com/watch?v=${encodeURIComponent(
                 ytState.videoId
