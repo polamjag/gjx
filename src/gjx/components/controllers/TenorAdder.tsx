@@ -105,8 +105,9 @@ export const TenorAdder: React.FC<{}> = () => {
     if (!tenorSearchParamsState) {
       return;
     }
-
-    if (!tenorSearchParamsState.query) { return; }
+    if (!tenorSearchParamsState.query) {
+      return;
+    }
 
     setGotError(false);
     setIsLoading(true);
