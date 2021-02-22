@@ -71,7 +71,7 @@ export const YouTubeOverlay: React.FC<{}> = () => {
         size={33}
       />
       <button onClick={handleSetVideo} disabled={!urlValue}>
-        Use
+        Load
       </button>
       {ytState?.videoId && (
         <div className="youtube-overlay__current-state">
@@ -86,7 +86,7 @@ export const YouTubeOverlay: React.FC<{}> = () => {
             >
               youtu.be/{ytState.videoId}
             </a>{" "}
-            <button onClick={handleRemoveCurrentVideo}>Stop</button>
+            <button onClick={handleRemoveCurrentVideo}>Unload</button>
           </div>
           <div className="youtube-overlay__thumbnail">
             <img

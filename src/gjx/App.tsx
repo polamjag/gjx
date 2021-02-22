@@ -53,6 +53,7 @@ const Workspace: React.FC<{ showControllers: boolean }> = ({
     return (
       <>
         <div className={showControllers ? "controllers" : "no-controllers"}>
+          <ControllerSection title="GIF">
           <ControllerSection title="Image Bin">
             <ImagesList />
             <AddImageForm />
@@ -65,6 +66,7 @@ const Workspace: React.FC<{ showControllers: boolean }> = ({
 
           <ControllerSection title="Tenor">
             <TenorAdder />
+          </ControllerSection>
           </ControllerSection>
 
           <ControllerSection title="Overlay">
