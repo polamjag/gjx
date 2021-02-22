@@ -134,7 +134,7 @@ const TapToBPM: React.FC<{ setIntervalMs: (interval: number) => void }> = ({
     if (tappedTimestamps.length > 4) {
       setIntervalMs((60 / detectedBPM) * 1000);
     }
-  }, [tappedTimestamps, setIntervalMs, detectedBPM]);
+  }, [tappedTimestamps, detectedBPM]);
 
   return (
     <>
