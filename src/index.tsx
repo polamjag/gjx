@@ -8,12 +8,8 @@ import reportWebVitals from "./reportWebVitals";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB2jJu7vUNztDiVbaDTvjKAFjRZQzDCDfo",
-  authDomain: "gjxgjx-35640.firebaseapp.com",
   databaseURL: "https://gjxgjx-35640-default-rtdb.firebaseio.com",
   projectId: "gjxgjx-35640",
-  storageBucket: "gjxgjx-35640.appspot.com",
-  messagingSenderId: "192829888990",
-  appId: "1:192829888990:web:75b160ac76dae99555654f",
 };
 
 (async () => {
