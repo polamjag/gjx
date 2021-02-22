@@ -3,6 +3,10 @@
   --hover-component-keyColor: #1d91d4;
 }
 
+code {
+  font-family: '.SF Mono', Menlo, Consolas;
+}
+
 input:disabled,
 button:disabled {
   cursor: not-allowed;
@@ -254,4 +258,54 @@ input[type="range"] {
   border: 6px solid rgb(92, 199, 49);
   border-radius: 6px;
   mix-blend-mode: hard-light;
+}
+
+.splash-screen {
+  text-align: center;
+  margin-top: 40vh;
+  transform-origin: center;
+  pointer-events: none;
+  user-select: none;
+
+  .splash-screen__title {
+    letter-spacing: .014em;
+    font-size: 3em;
+    opacity: 0.4;
+    font-weight: 900;
+    animation: splashScreenLaunch 2s ease 0s 1;
+
+    @keyframes splashScreenLaunch {
+      0% {
+        opacity: 0;
+        transform: scale(0.83);
+      }
+      100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+    }
+  }
+
+  .splash-screen__error {
+    color: yellow;
+    opacity: 0.8;
+    font-size: 1rem;
+    font-weight: normal;
+    animation: splashScreenError .85s ease-out 0s infinite;
+    margin-top: .2em;
+    line-height: 1.34em;
+
+    code {
+      user-select: text;
+      pointer-events: all;
+    }
+
+    @keyframes splashScreenError {
+      0% {
+        color: red;
+      }
+      100% {
+      }
+    }
+  }
 }

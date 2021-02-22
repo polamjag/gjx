@@ -48,7 +48,7 @@ const Workspace: React.FC<{ showControllers: boolean }> = ({
 }) => {
   const realtimeSyncMeta = useRecoilValue(realtimeSyncMetaState);
 
-  if (realtimeSyncMeta.synchronizationState !== 'fresh') {
+  if (realtimeSyncMeta.synchronizationState !== "fresh") {
     return (
       <>
         <div className={showControllers ? "controllers" : "no-controllers"}>
@@ -71,7 +71,18 @@ const Workspace: React.FC<{ showControllers: boolean }> = ({
       </>
     );
   } else {
-    return <>syncing</>;
+    return (
+      <div className="splash-screen">
+        <div className="splash-screen__title">GIF JOCKEY X</div>
+        {realtimeSyncMeta.initializationError && (
+          <div className="splash-screen__error">
+            Unexpected Error in Initialization Phase:
+            <br />
+            <code>{JSON.stringify(realtimeSyncMeta.initializationError)}</code>
+          </div>
+        )}
+      </div>
+    );
   }
 };
 

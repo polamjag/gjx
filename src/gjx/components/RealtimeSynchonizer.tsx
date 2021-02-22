@@ -26,18 +26,28 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           return;
         }
 
-        setRealtimeSyncMetaState((old) => ({ ...old, canSendStateToRemote: false }));
+        setRealtimeSyncMetaState((old) => ({
+          ...old,
+          canSendStateToRemote: false,
+        }));
         setAppState(() => ({ ...defaultState, ...data.appState }));
         setRealtimeSyncMetaState({
           canSendStateToRemote: true,
           lastGotEpoch: Date.now(),
-          synchronizationState: 'gotInitialState',
+          synchronizationState: "gotInitialState",
         });
+      })
+      .catch((err) => {
+        setRealtimeSyncMetaState((prevState) => ({
+          ...prevState,
+          synchronizationState: 'fresh',
+          initializationError: err,
+        }));
       });
   }, [firebase, setAppState, setRealtimeSyncMetaState]);
 
   useEffect(() => {
-    if (realtimeSyncMeta.synchronizationState === 'fresh') {
+    if (realtimeSyncMeta.synchronizationState === "fresh") {
       return;
     }
 
@@ -49,7 +59,7 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
   }, [firebase, appState, realtimeSyncMeta]);
 
   useEffect(() => {
-    if (realtimeSyncMeta.synchronizationState === 'fresh') {
+    if (realtimeSyncMeta.synchronizationState === "fresh") {
       return;
     }
 
@@ -62,7 +72,10 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           return;
         }
 
-        setRealtimeSyncMetaState((old) => ({ ...old, canSendStateToRemote: false }));
+        setRealtimeSyncMetaState((old) => ({
+          ...old,
+          canSendStateToRemote: false,
+        }));
         setAppState(() => ({ ...defaultState, ...data.appState }));
         setRealtimeSyncMetaState((prevState) => ({
           ...prevState,
@@ -70,7 +83,12 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
           lastGotEpoch: Date.now(),
         }));
       });
-  }, [firebase, setAppState, realtimeSyncMeta.synchronizationState, setRealtimeSyncMetaState]);
+  }, [
+    firebase,
+    setAppState,
+    realtimeSyncMeta.synchronizationState,
+    setRealtimeSyncMetaState,
+  ]);
 
   return <></>;
 };
