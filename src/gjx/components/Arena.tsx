@@ -52,12 +52,12 @@ const youtubeIframeApiState = atom<YouTubeIframeApiState>({
 
 const YouTubePlayerContainer: React.FC<{
   state: SyncedAppState["overlayStrategy"]["youtubeEmbed"]["state"];
-}> = ({ state: { videoId } }) => {
-  if (!videoId) {
+}> = ({ state }) => {
+  if (!state?.videoId) {
     return null;
   }
 
-  return <YouTubePlayer videoId={videoId} />;
+  return <YouTubePlayer videoId={state.videoId} />;
 };
 
 const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
@@ -84,11 +84,6 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
             event.target.mute();
             event.target.playVideo();
           },
-          // onStateChange: (event) => {
-          //   if (event.data === YT.PlayerState.ENDED){
-          //     event.target.playVideo();
-          //   }
-          // }
         },
       });
       playerRef.current = player;
@@ -104,7 +99,7 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
       <iframe
         width="100%"
         height="100%"
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=0&loop=1&disablekb=1&enablejsapi=1&controls=0&playsinline=1`}
+        src={`https://www.youtube.com/embed/${encodeURIComponent(videoId)}?autoplay=0&loop=1&disablekb=1&enablejsapi=1&controls=0&playsinline=1`}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         title="youtube embed"

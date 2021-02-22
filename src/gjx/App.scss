@@ -208,13 +208,31 @@ input[type="range"] {
 }
 
 .youtube-overlay {
-  .youtube-overlay__thumbnail-preview {
-    margin-top: 0.8em;
+  .youtube-overlay__current-state {
+    .youtube-overlay__getset {
+      margin-top: 0.4em;
+      line-height: 1.2em;
 
-    img {
-      width: 80px;
-      height: 45px;
-      object-fit: cover;
+      a {
+        color: var(--active-component-keyColor);
+        padding: 0.3em;
+        border-radius: 0.2em;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+          background: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+
+    .youtube-overlay__thumbnail {
+      margin-top: 0.4em;
+      img {
+        width: 80px;
+        height: 45px;
+        object-fit: cover;
+      }
     }
   }
 }

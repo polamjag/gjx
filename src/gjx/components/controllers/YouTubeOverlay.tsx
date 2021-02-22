@@ -49,15 +49,16 @@ export const YouTubeOverlay: React.FC<{}> = () => {
     setUrlValue(value);
   };
 
-  useEffect(() => {
-    if (urlValue === "") {
-      setYtState({ videoId: "" });
-    }
+  const handleSetVideo = () => {
     const videoId = extractVideoIdFromYouTubeUrl(urlValue);
     if (videoId) {
       setYtState({ videoId });
+      setUrlValue("");
     }
-  }, [urlValue, setYtState]);
+  };
+  const handleRemoveCurrentVideo = () => {
+    setYtState({});
+  };
 
   return (
     <div className="youtube-overlay">
@@ -68,25 +69,43 @@ export const YouTubeOverlay: React.FC<{}> = () => {
         onChange={handleUrlChange}
         size={33}
       />
-      {ytState.videoId && (
-      <div className="youtube-overlay__thumbnail-preview">
-        <img
-          src={`https://img.youtube.com/vi/${ytState.videoId}/default.jpg`}
-          alt=""
-        />
-        <img
-          src={`https://img.youtube.com/vi/${ytState.videoId}/1.jpg`}
-          alt=""
-        />
-        <img
-          src={`https://img.youtube.com/vi/${ytState.videoId}/2.jpg`}
-          alt=""
-        />
-        <img
-          src={`https://img.youtube.com/vi/${ytState.videoId}/3.jpg`}
-          alt=""
-        />
-      </div>
+      <button onClick={handleSetVideo} disabled={!urlValue}>
+        Use
+      </button>
+      {ytState?.videoId && (
+        <div className="youtube-overlay__current-state">
+          <div className="youtube-overlay__getset">
+            Active:{" "}
+            <a
+              href={`https://youtube.com/watch?v=${encodeURIComponent(
+                ytState.videoId
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              youtu.be/{ytState.videoId}
+            </a>{" "}
+            <button onClick={handleRemoveCurrentVideo}>Stop</button>
+          </div>
+          <div className="youtube-overlay__thumbnail">
+            <img
+              src={`https://img.youtube.com/vi/${ytState.videoId}/default.jpg`}
+              alt=""
+            />
+            <img
+              src={`https://img.youtube.com/vi/${ytState.videoId}/1.jpg`}
+              alt=""
+            />
+            <img
+              src={`https://img.youtube.com/vi/${ytState.videoId}/2.jpg`}
+              alt=""
+            />
+            <img
+              src={`https://img.youtube.com/vi/${ytState.videoId}/3.jpg`}
+              alt=""
+            />
+          </div>
+        </div>
       )}
     </div>
   );
