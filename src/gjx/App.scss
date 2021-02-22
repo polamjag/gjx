@@ -107,10 +107,11 @@ input[type="range"] {
   padding: 16px;
   user-select: none;
   display: inline-block;
-  opacity: 0.3;
+  opacity: 0.5;
   max-width: 100vw;
   max-height: 90vh;
   overflow: scroll;
+  transition: opacity .15s ease 0s;
 
   &:hover {
     opacity: 1;
@@ -302,10 +303,12 @@ input[type="range"] {
   z-index: -2;
 }
 
+.arena--content--overlay-wrapper {
+  z-index: -1;
+}
 .arena__overlay__youtubeEmbed {
   @include arenaScreen();
-  z-index: -1;
-  mix-blend-mode: screen;
+  z-index: inherit;
 }
 
 .sync-indicator {

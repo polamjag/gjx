@@ -8,6 +8,7 @@ import { realtimeSyncMetaState } from "./atoms";
 import { Arena } from "./components/Arena";
 import { AddImageForm } from "./components/controllers/AddImageForm";
 import { ImagesList } from "./components/controllers/ImagesList";
+import { OverlayMixer } from "./components/controllers/OverlayMixer";
 import { OverlayStrategySelector } from "./components/controllers/OverlayStrategySelector";
 import { Switcher } from "./components/controllers/Switcher";
 import { SwitchingStrategySelector } from "./components/controllers/SwitchingStrategySelector";
@@ -52,32 +53,33 @@ const Workspace: React.FC<{ showControllers: boolean }> = ({
   if (realtimeSyncMeta.synchronizationState !== "fresh") {
     return (
       <>
+        <Arena />
+
         <div className={showControllers ? "controllers" : "no-controllers"}>
           <ControllerSection title="GIF">
-          <ControllerSection title="Image Bin">
-            <ImagesList />
-            <AddImageForm />
-          </ControllerSection>
+            <ControllerSection title="Image Bin">
+              <ImagesList />
+              <AddImageForm />
+            </ControllerSection>
 
-          <ControllerSection title="Switcher">
-            <SwitchingStrategySelector />
-            <Switcher />
-          </ControllerSection>
+            <ControllerSection title="Switcher">
+              <SwitchingStrategySelector />
+              <Switcher />
+            </ControllerSection>
 
-          <ControllerSection title="Tenor">
-            <TenorAdder />
-          </ControllerSection>
+            <ControllerSection title="Tenor">
+              <TenorAdder />
+            </ControllerSection>
           </ControllerSection>
 
           <ControllerSection title="Overlay">
             <OverlayStrategySelector />
+            <OverlayMixer />
             <ControllerSection title="YouTube">
               <YouTubeOverlay />
             </ControllerSection>
           </ControllerSection>
         </div>
-
-        <Arena />
       </>
     );
   } else {

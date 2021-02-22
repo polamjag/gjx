@@ -3,10 +3,12 @@ import { atom, useRecoilState, useRecoilValue } from "recoil";
 
 import {
   activeOverlayStrategyNameState,
+  overlayCompositionState,
   overlayStrategyState,
   selectedImageState,
   SyncedAppState,
 } from "../atoms";
+import { OverlayStrategyName } from "../types";
 
 export const Arena: React.FC<{}> = () => {
   return (
@@ -61,18 +63,30 @@ const GIF: React.FC<{}> = () => {
   return image ? <img className="arena--content" src={image} alt="" /> : <></>;
 };
 
-const Overlay: React.FC<{}> = () => {
+const OverlayForStrategyName: React.FC<{
+  overlayStrategyName: OverlayStrategyName;
+}> = ({ overlayStrategyName }) => {
   const overlayState = useRecoilValue(overlayStrategyState);
-  const activeOverlayStrategyName = useRecoilValue(
-    activeOverlayStrategyNameState
-  );
 
-  switch (activeOverlayStrategyName) {
+  switch (overlayStrategyName) {
     case "empty":
       return null;
     case "youtubeEmbed":
       return <YouTubePlayerContainer state={overlayState.youtubeEmbed.state} />;
   }
+};
+
+const Overlay: React.FC<{}> = () => {
+  const activeOverlayStrategyName = useRecoilValue(
+    activeOverlayStrategyNameState
+  );
+  const overlayComposition = useRecoilValue(overlayCompositionState);
+
+  return (
+    <div style={{ mixBlendMode: overlayComposition.blendMode }} className="arena--content--overlay-wrapper">
+      <OverlayForStrategyName overlayStrategyName={activeOverlayStrategyName} />
+    </div>
+  );
 };
 
 const overlayYouTubePlayerId = "overlay-youtube-player";
