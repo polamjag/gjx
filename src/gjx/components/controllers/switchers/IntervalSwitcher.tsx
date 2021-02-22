@@ -128,15 +128,19 @@ const TapToBPM: React.FC<{ setIntervalMs: (interval: number) => void }> = ({
     }
 
     setTappedTimestamps([...tappedTimestamps.slice(-15), Date.now()]);
+  };
 
+  useEffect(() => {
     if (tappedTimestamps.length > 4) {
       setIntervalMs((60 / detectedBPM) * 1000);
     }
-  };
+  }, [tappedTimestamps, setIntervalMs, detectedBPM]);
 
   return (
     <>
-      <button onClick={handleTap} className="tap-clap-button">Tap BPM</button>
+      <button onClick={handleTap} className="tap-clap-button">
+        Tap BPM
+      </button>
       {detectedBPM ? detectedBPM.toFixed(2) : "-"}
     </>
   );
