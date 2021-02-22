@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@types/recoil": "^0.0.1",
+    "@types/youtube": "^0.0.41",
     "firebase-tools": "^9.4.0"
   }
 }
