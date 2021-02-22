@@ -180,8 +180,8 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      const time = playerRef.current?.getCurrentTime();
-      const duration = playerRef.current?.getDuration();
+      const time = playerRef.current?.getCurrentTime && playerRef.current?.getCurrentTime();
+      const duration = playerRef.current?.getDuration && playerRef.current?.getDuration();
 
       if (!time || !duration) {
         return;
