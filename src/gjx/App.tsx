@@ -35,10 +35,10 @@ const App: React.FC<{
     <div className="App">
       <WithFirebase firebaseConfig={firebaseConfig}>
         <RecoilRoot>
+          <Workspace showControllers={showControllers} />
+
           <RealtimeSynchronizer />
           <SyncIndicator />
-
-          <Workspace showControllers={showControllers} />
         </RecoilRoot>
       </WithFirebase>
     </div>

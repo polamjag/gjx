@@ -28,8 +28,8 @@ input[type="text"] {
   }
 }
 
-select { 
-  appearance: none; 
+select {
+  appearance: none;
   cursor: pointer;
   @extend input[type="text"];
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
@@ -122,12 +122,14 @@ input[type="range"] {
   max-width: 100vw;
   max-height: 90vh;
   overflow: scroll;
-  transition: opacity .15s ease 0s;
+  transition: all 0.15s ease 0s;
+  text-shadow: 0 0 0.7em rgba(0, 0, 0, 0.5);
 
   &:hover {
     opacity: 1;
     backdrop-filter: blur(8px);
     background: rgba(0, 0, 0, 0.4);
+    text-shadow: none;
   }
 }
 
@@ -269,7 +271,7 @@ input[type="range"] {
 }
 
 .overlay-mixer {
-  margin: .4em 0;
+  margin: 0.4em 0;
 }
 
 .thumbnail-with-action {
