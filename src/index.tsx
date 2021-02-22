@@ -3,19 +3,13 @@ import "./index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import GJXApp from "./gjx/GJXApp";
+import { RoutedApp } from './RoutedApp';
 import reportWebVitals from "./reportWebVitals";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyB2jJu7vUNztDiVbaDTvjKAFjRZQzDCDfo",
-  databaseURL: "https://gjxgjx-35640-default-rtdb.firebaseio.com",
-  projectId: "gjxgjx-35640",
-};
 
 (async () => {
   ReactDOM.render(
     <React.StrictMode>
-      <GJXApp firebaseConfig={firebaseConfig} />
+      <RoutedApp />
     </React.StrictMode>,
     document.getElementById("root")
   );

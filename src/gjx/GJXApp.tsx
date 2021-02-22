@@ -17,11 +17,20 @@ import { Projector } from "./components/Projector";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { SyncIndicator } from "./components/SyncIndicator";
 import { WithFirebase } from "./components/WithFirebase";
+import { useParams } from "react-router-dom";
 
-const GJXApp: React.FC<{
-  firebaseConfig: Object;
-}> = ({ firebaseConfig }) => {
+const GJXApp: React.FC<{}> = () => {
   const [showControllers, setShowControllers] = useState<boolean>(true);
+  const { projectId, apiKey } = useParams<{
+    projectId: string;
+    apiKey: string;
+  }>();
+  const firebaseConfig = {
+    projectId,
+    apiKey,
+    databaseURL: `https://${projectId}-default-rtdb.firebaseio.com`,
+  };
+
   useEffect(() => {
     // eslint-disable-next-line no-restricted-globals
     const ops = location.hash.substring(1).split(",");

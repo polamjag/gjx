@@ -1,0 +1,40 @@
+@import './App.scss';
+
+.page__home {
+  text-align: center;
+  font-size: 2em;
+  padding: 4em 2em 0;
+
+  @media (max-width: 480px) {
+    font-size: 1.2em;
+    padding: 3em .3em;
+    input {
+      display: block;
+      margin: .2em auto;
+    }
+  }
+
+  h1 {
+    font-weight: 900;
+    margin-bottom: 0;
+  }
+  
+  input {
+    margin-bottom: 0em;
+  }
+  
+  .start-session {
+    text-decoration: none;
+    display: inline-block;
+    margin: 1em auto 0;
+  }
+
+  p {
+    font-size: .7em;
+    opacity: .8;
+
+    a {
+      color: cyan;
+    }
+  }
+}
