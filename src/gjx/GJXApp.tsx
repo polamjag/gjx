@@ -21,7 +21,7 @@ import { useParams } from "react-router-dom";
 
 const GJXApp: React.FC<{}> = () => {
   const [showControllers, setShowControllers] = useState<boolean>(true);
-  const { projectId, apiKey, rtdbKey = 'gjxSession/' } = useParams<{
+  const { projectId, apiKey, rtdbKey = "gjxSession/" } = useParams<{
     projectId: string;
     apiKey: string;
     rtdbKey: string;
@@ -83,7 +83,9 @@ const Dancefloor: React.FC<{ showControllers: boolean }> = ({
 
           <ControllerSection title="Overlay">
             <OverlayStrategySelector />
-            <OverlayMixer />
+            <ControllerSection>
+              <OverlayMixer />
+            </ControllerSection>
             <ControllerSection title="YouTube">
               <YouTubeOverlay />
             </ControllerSection>
