@@ -302,8 +302,6 @@ input[type="range"] {
   @include arenaScreen();
   z-index: -1;
   mix-blend-mode: screen;
-  transform-origin: middle center;
-  transform: scale(1.2);
 }
 
 .sync-indicator {

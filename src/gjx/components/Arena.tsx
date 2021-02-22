@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import { isContext } from "node:vm";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
 
 import {
@@ -10,11 +11,48 @@ import {
 
 export const Arena: React.FC<{}> = () => {
   return (
-    <>
+    <WithWindowSize>
       <YouTubeIframeApi />
       <Overlay />
       <GIF />
-    </>
+    </WithWindowSize>
+  );
+};
+
+interface WindowSize {
+  width: number;
+  height: number;
+}
+
+const WindowSizeContext = React.createContext<WindowSize>({
+  height: window.top.innerHeight,
+  width: window.top.innerWidth,
+});
+
+const WithWindowSize: React.FC<{}> = ({ children }) => {
+  const [size, setSize] = useState<WindowSize>({
+    height: window.top.innerHeight,
+    width: window.top.innerWidth,
+  });
+  const updateWindowSizeInfo = () => {
+    setSize({
+      height: window.top.innerHeight,
+      width: window.top.innerWidth,
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateWindowSizeInfo);
+
+    return () => {
+      window.removeEventListener("resize", updateWindowSizeInfo);
+    };
+  }, []);
+
+  return (
+    <WindowSizeContext.Provider value={size}>
+      {children}
+    </WindowSizeContext.Provider>
   );
 };
 
@@ -90,23 +128,37 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
 
       player.addEventListener("onStateChange", () => {
         player.playVideo && player.playVideo();
-        playerRef.current?.playVideo && playerRef.current?.playVideo()
+        playerRef.current?.playVideo && playerRef.current?.playVideo();
       });
     }
   }, [videoId, yt]);
 
+  const windowSize = useContext(WindowSizeContext);
+  let styleToSet: React.CSSProperties = {};
+  if ((windowSize.height / 9) * 16 > windowSize.width) {
+    styleToSet = {
+      width: (windowSize.height / 9) * 16,
+      height: windowSize.height,
+      left: ((windowSize.height / 9) * 16 - windowSize.width) / -2,
+    };
+  } else {
+    styleToSet = {
+      width: windowSize.width,
+      height: (windowSize.width / 16) * 9,
+      top: ((windowSize.width / 16) * 9 - windowSize.height) / -2,
+    };
+  }
+
   return (
     <>
       <iframe
-        width="100%"
-        height="100%"
         src={`https://www.youtube.com/embed/${encodeURIComponent(
           videoId
         )}?autoplay=0&loop=1&disablekb=1&enablejsapi=1&controls=0&playsinline=1`}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         title="youtube embed"
-        style={{ pointerEvents: "none" }}
+        style={styleToSet}
         id={overlayYouTubePlayerId}
         className="arena__overlay__youtubeEmbed"
       ></iframe>
