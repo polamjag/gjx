@@ -1,8 +1,10 @@
 import "./App.scss";
 
+import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { RecoilRoot, useRecoilValue } from "recoil";
 
+import { realtimeSyncMetaState } from "./atoms";
 import { Arena } from "./components/Arena";
 import { AddImageForm } from "./components/controllers/AddImageForm";
 import { ImagesList } from "./components/controllers/ImagesList";
@@ -13,9 +15,6 @@ import { ControllerSection } from "./components/molecures/ControllerSection";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { SyncIndicator } from "./components/SyncIndicator";
 import { FirebaseContext } from "./firebaseContext";
-
-import firebase from "firebase";
-import { realtimeSyncMetaState } from "./atoms";
 
 const App: React.FC<{
   firebaseConfig: Object;
