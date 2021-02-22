@@ -36,14 +36,14 @@ const App: React.FC<{
           <RealtimeSynchronizer />
           <SyncIndicator />
 
-          <Surface showControllers={showControllers} />
+          <Workspace showControllers={showControllers} />
         </RecoilRoot>
       </WithFirebase>
     </div>
   );
 };
 
-const Surface: React.FC<{ showControllers: boolean }> = ({
+const Workspace: React.FC<{ showControllers: boolean }> = ({
   showControllers,
 }) => {
   const realtimeSyncMeta = useRecoilValue(realtimeSyncMetaState);
