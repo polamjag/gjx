@@ -1,10 +1,15 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React from "react";
+import { useRecoilValue } from "recoil";
 
-import { activeOverlayStrategyNameState, overlayCompositionState, overlayStrategyState, selectedImageState } from '../atoms';
-import { OverlayStrategyName } from '../types';
-import { WithWindowSize } from './arena/WithWindowSize';
-import { YouTubeIframeApi, YouTubePlayerContainer } from './arena/YouTubeEmbed';
+import {
+  activeOverlayStrategyNameState,
+  overlayCompositionState,
+  overlayStrategyState,
+  selectedImageState,
+} from "../atoms";
+import { OverlayStrategyName } from "../types";
+import { WithWindowSize } from "./arena/WithWindowSize";
+import { YouTubeIframeApi, YouTubePlayerContainer } from "./arena/YouTubeEmbed";
 
 export const Arena: React.FC<{}> = () => {
   return (
