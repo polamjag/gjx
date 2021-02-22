@@ -1,6 +1,5 @@
 import "./App.scss";
 
-import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { RecoilRoot, useRecoilValue } from "recoil";
 
@@ -17,7 +16,7 @@ import { ControllerSection } from "./components/molecures/ControllerSection";
 import { Projector } from "./components/Projector";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { SyncIndicator } from "./components/SyncIndicator";
-import { FirebaseContext } from "./firebaseContext";
+import { WithFirebase } from "./components/WithFirebase";
 
 const App: React.FC<{
   firebaseConfig: Object;
@@ -96,24 +95,6 @@ const Dancefloor: React.FC<{ showControllers: boolean }> = ({
       </div>
     );
   }
-};
-
-const WithFirebase: React.FC<{ firebaseConfig: Object }> = ({
-  firebaseConfig,
-  children,
-}) => {
-  const [firebaseApp, setFirebaseApp] = useState<undefined | firebase.app.App>(
-    undefined
-  );
-  useEffect(() => {
-    setFirebaseApp(firebase.initializeApp(firebaseConfig));
-  }, [firebaseConfig]);
-
-  return (
-    <FirebaseContext.Provider value={firebaseApp}>
-      {children}
-    </FirebaseContext.Provider>
-  );
 };
 
 export default App;

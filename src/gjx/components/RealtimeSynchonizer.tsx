@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 import { defaultState, realtimeSyncMetaState, syncedAppState } from "../atoms";
-import { FirebaseContext } from "../firebaseContext";
+import { FirebaseContext } from "./WithFirebase";
 
 export const RealtimeSynchronizer: React.FC<{}> = () => {
   const [appState, setAppState] = useRecoilState(syncedAppState);
