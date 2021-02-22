@@ -4,7 +4,9 @@ import { useRecoilState } from "recoil";
 import { defaultState, realtimeSyncMetaState, syncedAppState } from "../atoms";
 import { FirebaseContext } from "./WithFirebase";
 
-export const RealtimeSynchronizer: React.FC<{}> = () => {
+export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
+  rtdbKey,
+}) => {
   const [appState, setAppState] = useRecoilState(syncedAppState);
   const [realtimeSyncMeta, setRealtimeSyncMetaState] = useRecoilState(
     realtimeSyncMetaState
@@ -18,13 +20,10 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
 
     firebase
       .database()
-      .ref("sessions/")
+      .ref(rtdbKey)
       .get()
       .then((snapshot) => {
-        const data = snapshot.exportVal();
-        if (!data) {
-          return;
-        }
+        const data = snapshot.exportVal() || {};
 
         setRealtimeSyncMetaState((old) => ({
           ...old,
@@ -40,11 +39,11 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
       .catch((err) => {
         setRealtimeSyncMetaState((prevState) => ({
           ...prevState,
-          synchronizationState: 'fresh',
+          synchronizationState: "fresh",
           initializationError: err,
         }));
       });
-  }, [firebase, setAppState, setRealtimeSyncMetaState]);
+  }, [firebase, setAppState, setRealtimeSyncMetaState, rtdbKey]);
 
   useEffect(() => {
     if (realtimeSyncMeta.synchronizationState === "fresh") {
@@ -52,11 +51,11 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
     }
 
     if (realtimeSyncMeta.canSendStateToRemote) {
-      firebase?.database().ref("sessions/").set({
+      firebase?.database().ref(rtdbKey).set({
         appState,
       });
     }
-  }, [firebase, appState, realtimeSyncMeta]);
+  }, [firebase, appState, realtimeSyncMeta, rtdbKey]);
 
   useEffect(() => {
     if (realtimeSyncMeta.synchronizationState === "fresh") {
@@ -65,7 +64,7 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
 
     firebase
       ?.database()
-      .ref("sessions/")
+      .ref(rtdbKey)
       .on("value", (snapshot) => {
         const data = snapshot.val();
         if (!data) {
@@ -88,6 +87,7 @@ export const RealtimeSynchronizer: React.FC<{}> = () => {
     setAppState,
     realtimeSyncMeta.synchronizationState,
     setRealtimeSyncMetaState,
+    rtdbKey,
   ]);
 
   return <></>;

@@ -21,9 +21,10 @@ import { useParams } from "react-router-dom";
 
 const GJXApp: React.FC<{}> = () => {
   const [showControllers, setShowControllers] = useState<boolean>(true);
-  const { projectId, apiKey } = useParams<{
+  const { projectId, apiKey, rtdbKey = 'gjxSession/' } = useParams<{
     projectId: string;
     apiKey: string;
+    rtdbKey: string;
   }>();
   const firebaseConfig = {
     projectId,
@@ -45,7 +46,7 @@ const GJXApp: React.FC<{}> = () => {
         <RecoilRoot>
           <Dancefloor showControllers={showControllers} />
 
-          <RealtimeSynchronizer />
+          <RealtimeSynchronizer rtdbKey={rtdbKey} />
           <SyncIndicator />
         </RecoilRoot>
       </WithFirebase>
