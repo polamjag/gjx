@@ -43,6 +43,7 @@ export interface YouTubeEmbedOverlayStrategy extends OverlayStrategy {
   name: "youtubeEmbed";
   state: {
     videoId?: string;
+    relativeRoughSeekPosition?: number;
   };
 }
 

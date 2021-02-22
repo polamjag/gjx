@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { atom, useRecoilState, useRecoilValue } from "recoil";
+import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import {
   activeOverlayStrategyNameState,
@@ -114,6 +114,8 @@ const YouTubePlayerContainer: React.FC<{
 const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
   // https://developers.google.com/youtube/iframe_api_reference
 
+  const [overlayStrategy, setOverlayStrategy] = useRecoilState(overlayStrategyState);
+
   const yt = useRecoilValue(youtubeIframeApiState);
   const playerRef = useRef<YT.Player | undefined>(undefined);
 
@@ -133,6 +135,11 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
           onReady: (event) => {
             event.target.setLoop(true);
             event.target.mute();
+            const duration = event.target.getDuration();
+            const relativePos = overlayStrategy.youtubeEmbed.state?.relativeRoughSeekPosition;
+            if (duration && relativePos) {
+              event.target.seekTo(duration * relativePos, true);
+            }
             event.target.playVideo();
           },
         },
@@ -161,6 +168,28 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
       top: ((windowSize.width / 16) * 9 - windowSize.height) / -2,
     };
   }
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      const time = playerRef.current?.getCurrentTime();
+      const duration = playerRef.current?.getDuration();
+
+      if (!time || !duration) { return }
+
+      setOverlayStrategy(prevState => ({
+        ...prevState,
+        youtubeEmbed: {
+          name: 'youtubeEmbed' as const,
+          state: {
+            videoId,
+            relativeRoughSeekPosition: time / duration,
+          }
+        }
+      }))
+      
+    }, 10000)
+    return () => window.clearInterval(timer);
+  }, [setOverlayStrategy, videoId])
 
   return (
     <>
