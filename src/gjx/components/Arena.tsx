@@ -87,12 +87,13 @@ const YouTubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
         },
       });
       playerRef.current = player;
+
+      player.addEventListener("onStateChange", () => {
+        player.playVideo && player.playVideo();
+        playerRef.current?.playVideo && playerRef.current?.playVideo()
+      });
     }
   }, [videoId, yt]);
-
-  playerRef.current?.addEventListener("onStateChange", () => {
-    playerRef.current?.playVideo();
-  });
 
   return (
     <>
