@@ -11,8 +11,10 @@ export const WithFirebase: React.FC<{ firebaseConfig: Object }> = ({
     undefined
   );
   useEffect(() => {
-    setFirebaseApp(firebase.initializeApp(firebaseConfig));
-  }, [firebaseConfig]);
+    if (!firebaseApp) {
+      setFirebaseApp(firebase.initializeApp(firebaseConfig));
+    }
+  }, [firebaseApp, firebaseConfig]);
 
   return (
     <FirebaseContext.Provider value={firebaseApp}>
