@@ -87,7 +87,7 @@ export const IntervalSwitcher: React.FC<{}> = () => {
 
   return (
     <div className="switcher switcher__interval">
-      <div>Interval Random Switcher</div>
+      <div>Periodical Random Switcher</div>
       <input
         type="range"
         value={state.intervalMs}

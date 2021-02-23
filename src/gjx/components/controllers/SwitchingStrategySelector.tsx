@@ -7,7 +7,7 @@ import { SwitchingStrategyName } from "../../types";
 const strategies: Array<{ name: SwitchingStrategyName; label: string }> = [
   {
     name: "intervalSwitching",
-    label: "🎲 Interval",
+    label: "🎲 Periodical",
   },
   {
     name: "manualSwitching",
