@@ -18,9 +18,8 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
       return;
     }
 
-    firebase
-      .database()
-      .ref(rtdbKey)
+    const fbRef = firebase.database().ref(rtdbKey);
+    fbRef
       .get()
       .then((snapshot) => {
         const data = snapshot.exportVal() || {};
@@ -43,6 +42,10 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
           initializationError: err,
         }));
       });
+
+    return () => {
+      fbRef.off();
+    };
   }, [firebase, setAppState, setRealtimeSyncMetaState, rtdbKey]);
 
   useEffect(() => {
@@ -62,37 +65,38 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
       return;
     }
 
-    firebase
-      ?.database()
-      .ref(rtdbKey)
-      .on("value", (snapshot) => {
-        const data = snapshot.val();
-        if (!data) {
-          return;
-        }
+    const syncRef = firebase?.database().ref(rtdbKey);
+    syncRef?.on("value", (snapshot) => {
+      const data = snapshot.val();
+      if (!data) {
+        return;
+      }
 
-        setRealtimeSyncMetaState((old) => ({
-          ...old,
-          canSendStateToRemote: false,
-        }));
-        setAppState(() => ({ ...defaultState, ...data.appState }));
-        setRealtimeSyncMetaState((prevState) => ({
-          ...prevState,
-          canSendStateToRemote: true,
-          lastGotEpoch: Date.now(),
-        }));
-      });
+      setRealtimeSyncMetaState((old) => ({
+        ...old,
+        canSendStateToRemote: false,
+      }));
+      setAppState(() => ({ ...defaultState, ...data.appState }));
+      setRealtimeSyncMetaState((prevState) => ({
+        ...prevState,
+        canSendStateToRemote: true,
+        lastGotEpoch: Date.now(),
+      }));
+    });
 
-    firebase
-      ?.database()
-      .ref(".info/serverTimeOffset")
-      .on("value", function (snap) {
-        const offset = snap.val();
-        setRealtimeSyncMetaState((old) => ({
-          ...old,
-          lastGotPingMs: -offset,
-        }));
-      });
+    const pingRef = firebase?.database().ref(".info/serverTimeOffset");
+    pingRef?.on("value", function (snap) {
+      const offset = snap.val();
+      setRealtimeSyncMetaState((old) => ({
+        ...old,
+        lastGotPingMs: -offset,
+      }));
+    });
+
+    return () => {
+      syncRef?.off();
+      pingRef?.off();
+    };
   }, [
     firebase,
     setAppState,
