@@ -3,6 +3,13 @@
   --hover-component-keyColor: #1d91d4;
 }
 
+// avoid unintended scroll
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
 code {
   font-family: ".SF Mono", Menlo, Consolas;
 }
