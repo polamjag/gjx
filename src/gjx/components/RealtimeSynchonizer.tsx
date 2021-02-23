@@ -84,18 +84,23 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
       }));
     });
 
-    const pingRef = firebase?.database().ref(".info/serverTimeOffset");
-    pingRef?.on("value", function (snap) {
-      const offset = snap.val();
+    const infoRef = firebase?.database().ref(".info/");
+    infoRef?.on("value", function (snap) {
+      const { serverTimeOffset, connected }: {
+        serverTimeOffset: number;
+        connected: boolean;
+      } = snap.val() 
+
       setRealtimeSyncMetaState((old) => ({
         ...old,
-        lastGotPingMs: -offset,
+        lastGotPingMs: -serverTimeOffset,
+        synchronizationState: connected ? "connected" : "disconnected",
       }));
     });
 
     return () => {
       syncRef?.off();
-      pingRef?.off();
+      infoRef?.off();
     };
   }, [
     firebase,

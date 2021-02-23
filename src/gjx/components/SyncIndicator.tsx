@@ -10,11 +10,15 @@ export const SyncIndicator: React.FC<{}> = () => {
 
   useEffect(() => {
     const id = window.requestAnimationFrame(() => {
-      if (lastGot !== syncMeta.lastGotEpoch) {
-        setLastGot(syncMeta.lastGotEpoch);
+      if (syncMeta.synchronizationState !== "disconnected") {
+        if (lastGot !== syncMeta.lastGotEpoch) {
+          setLastGot(syncMeta.lastGotEpoch);
+          setIndicatorOpacity(1);
+        } else if (indicatorOpacity > 0.001) {
+          setIndicatorOpacity(indicatorOpacity * 0.91);
+        }
+      } else {
         setIndicatorOpacity(1);
-      } else if (indicatorOpacity > 0.001) {
-        setIndicatorOpacity(indicatorOpacity * 0.91);
       }
     });
     return () => window.cancelAnimationFrame(id);

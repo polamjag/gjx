@@ -46,7 +46,8 @@ select {
   padding-right: 1.7em;
 }
 
-button, .button-like {
+button,
+.button-like {
   font: inherit;
   border: #272727 2px solid;
   background: rgb(56, 56, 56);
@@ -369,14 +370,33 @@ details summary {
   &.sync-indicator__fresh {
     border-color: yellow;
   }
+
+  &.sync-indicator__disconnected {
+    border-color: rgb(255, 50, 35);
+    animation: disconnectedIndicator .6s ease 0s infinite;
+    @keyframes disconnectedIndicator {
+      0% {
+        border-color: rgb(255, 50, 35);
+        opacity: 1 !important;
+      }
+      50% {
+        border-color: yellow;
+        opacity: 0.6 !important;
+      }
+      100% {
+        border-color: rgb(255, 50, 35);
+        opacity: 1 !important;
+      }
+    }
+  }
 }
 
 .ping-value {
   position: absolute;
   bottom: 8px;
   right: 8px;
-  opacity: .4;
-  font-size: .8em;
+  opacity: 0.4;
+  font-size: 0.8em;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
   mix-blend-mode: normal;
   text-align: right;
