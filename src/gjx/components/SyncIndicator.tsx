@@ -21,6 +21,14 @@ export const SyncIndicator: React.FC<{}> = () => {
   });
 
   return (
-    <div className={`sync-indicator sync-indicator__${syncMeta.synchronizationState}`} style={{ opacity: indicatorOpacity }}></div>
+    <>
+      <div
+        className={`sync-indicator sync-indicator__${syncMeta.synchronizationState}`}
+        style={{ opacity: indicatorOpacity }}
+      ></div>
+      {syncMeta.lastGotPingMs && (
+        <div className="ping-value">{syncMeta.lastGotPingMs.toFixed(0)}ms</div>
+      )}
+    </>
   );
 };

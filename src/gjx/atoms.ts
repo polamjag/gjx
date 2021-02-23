@@ -184,6 +184,7 @@ export const realtimeSyncMetaState = atom<{
   initializationError?: any;
   lastGotEpoch: number;
   canSendStateToRemote: boolean;
+  lastGotPingMs?: number;
 }>({
   key: "syncMeta",
   default: {
@@ -191,5 +192,6 @@ export const realtimeSyncMetaState = atom<{
     initializationError: undefined,
     lastGotEpoch: -1,
     canSendStateToRemote: true,
+    lastGotPingMs: undefined,
   },
 });

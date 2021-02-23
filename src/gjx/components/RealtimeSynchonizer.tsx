@@ -1,3 +1,4 @@
+import { O_DIRECT } from "node:constants";
 import React, { useContext, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
@@ -80,6 +81,17 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
           ...prevState,
           canSendStateToRemote: true,
           lastGotEpoch: Date.now(),
+        }));
+      });
+
+    firebase
+      ?.database()
+      .ref(".info/serverTimeOffset")
+      .on("value", function (snap) {
+        const offset = snap.val();
+        setRealtimeSyncMetaState((old) => ({
+          ...old,
+          lastGotPingMs: -offset,
         }));
       });
   }, [
