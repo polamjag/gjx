@@ -1,4 +1,11 @@
-# Getting Started with Create React App
+# GJX: GIF JOCKEY X
+
+Inspired by:
+
+- https://github.com/kosendj/gj
+- [ブラウザでVJをやるワークショップをやった - hitode909の日記](https://blog.sushi.money/entry/2019/11/30/235900)
+ 
+---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
