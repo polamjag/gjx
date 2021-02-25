@@ -28,7 +28,7 @@ export interface SwitchingStrategies {
 
 //#region overlay
 
-export type OverlayStrategyName = "empty" | "youtubeEmbed";
+export type OverlayStrategyName = "empty" | "youtubeEmbed" | "arbitaryIframe";
 
 interface OverlayStrategy {
   name: OverlayStrategyName;
@@ -47,9 +47,17 @@ export interface YouTubeEmbedOverlayStrategy extends OverlayStrategy {
   };
 }
 
+export interface ArbitaryIframeOverlayStrategy extends OverlayStrategy {
+  name: "arbitaryIframe";
+  state: {
+    iframeSrc?: string;
+  };
+}
+
 export interface OverlayStrategies {
   empty: EmptyOverlayStrategy;
   youtubeEmbed: YouTubeEmbedOverlayStrategy;
+  arbitaryIframe: ArbitaryIframeOverlayStrategy;
 }
 
 //#endregion

@@ -10,6 +10,10 @@ const strategies: Array<{ name: OverlayStrategyName; label: string }> = [
     name: "youtubeEmbed",
     label: "📺 YouTube Embed",
   },
+  {
+    name: "arbitaryIframe",
+    label: "🌏 <iframe>"
+  }
 ];
 
 export const OverlayStrategySelector: React.FC<{}> = () => {

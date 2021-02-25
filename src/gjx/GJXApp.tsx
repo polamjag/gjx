@@ -1,10 +1,12 @@
 import "./App.scss";
 
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { RecoilRoot, useRecoilValue } from "recoil";
 
 import { realtimeSyncMetaState } from "./atoms";
 import { AddImageForm } from "./components/controllers/AddImageForm";
+import { IframeSetter } from "./components/controllers/ArbitaryIframeOverlay";
 import { ImagesList } from "./components/controllers/ImagesList";
 import { OverlayMixer } from "./components/controllers/OverlayMixer";
 import { OverlayStrategySelector } from "./components/controllers/OverlayStrategySelector";
@@ -17,7 +19,6 @@ import { Projector } from "./components/Projector";
 import { RealtimeSynchronizer } from "./components/RealtimeSynchonizer";
 import { SyncIndicator } from "./components/SyncIndicator";
 import { WithFirebase } from "./components/WithFirebase";
-import { useParams } from "react-router-dom";
 
 const GJXApp: React.FC<{}> = () => {
   const [showControllers, setShowControllers] = useState<boolean>(true);
@@ -88,6 +89,9 @@ const Dancefloor: React.FC<{ showControllers: boolean }> = ({
             </ControllerSection>
             <ControllerSection title="YouTube">
               <YouTubeOverlay />
+            </ControllerSection>
+            <ControllerSection title="<iframe>">
+              <IframeSetter />
             </ControllerSection>
           </ControllerSection>
         </div>

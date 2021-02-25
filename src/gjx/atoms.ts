@@ -38,21 +38,25 @@ export const defaultState: SyncedAppState = {
     },
   },
 
-  activeOverlayStrategyName: 'empty',
+  activeOverlayStrategyName: "empty",
   overlayStrategy: {
     empty: {
-      name: 'empty',
+      name: "empty",
       state: {},
     },
     youtubeEmbed: {
       name: "youtubeEmbed",
       state: {},
     },
+    arbitaryIframe: {
+      name: "arbitaryIframe",
+      state: {},
+    },
   },
   overlayComposition: {
-    blendMode: 'overlay',
+    blendMode: "overlay",
     opacity: 1,
-  }
+  },
 };
 
 export const syncedAppState = atom<SyncedAppState>({
@@ -153,24 +157,24 @@ export const overlayStrategyState = selector<SyncedAppState["overlayStrategy"]>(
   }
 );
 
-export const overlayCompositionState = selector<SyncedAppState["overlayComposition"]>(
-  {
-    key: "filteredOverlayComposition",
-    get: ({ get }) => {
-      const app = get(syncedAppState);
+export const overlayCompositionState = selector<
+  SyncedAppState["overlayComposition"]
+>({
+  key: "filteredOverlayComposition",
+  get: ({ get }) => {
+    const app = get(syncedAppState);
 
-      return app.overlayComposition;
-    },
-    set: ({ set }, newValue) => {
-      if (!(newValue instanceof DefaultValue)) {
-        return set(syncedAppState, (prevValue) => ({
-          ...prevValue,
-          overlayComposition: newValue,
-        }));
-      }
-    },
-  }
-);
+    return app.overlayComposition;
+  },
+  set: ({ set }, newValue) => {
+    if (!(newValue instanceof DefaultValue)) {
+      return set(syncedAppState, (prevValue) => ({
+        ...prevValue,
+        overlayComposition: newValue,
+      }));
+    }
+  },
+});
 
 // local states
 
@@ -180,7 +184,11 @@ export const selectedImageState = atom<string | undefined>({
 });
 
 export const realtimeSyncMetaState = atom<{
-  synchronizationState: "fresh" | "gotInitialState" | "connected" | "disconnected";
+  synchronizationState:
+    | "fresh"
+    | "gotInitialState"
+    | "connected"
+    | "disconnected";
   initializationError?: any;
   lastGotEpoch: number;
   canSendStateToRemote: boolean;

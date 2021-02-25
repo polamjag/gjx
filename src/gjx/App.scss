@@ -299,6 +299,13 @@ details summary {
   }
 }
 
+
+.arbitary-iframe-overlay {
+  .arbitary-iframe-overlay__getset {
+    margin-top: 0.4em;
+  }
+}
+
 .overlay-mixer {
   margin: 0.4em 0;
 }
@@ -355,6 +362,11 @@ details summary {
 .arena__overlay__youtubeEmbed {
   @include arenaScreen();
   z-index: inherit;
+}
+.arena__overlay__arbitary-iframe {
+  @include arenaScreen();
+  z-index: inherit;
+  border: none;
 }
 
 .sync-indicator {

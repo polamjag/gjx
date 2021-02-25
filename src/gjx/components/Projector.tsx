@@ -7,9 +7,12 @@ import {
   overlayStrategyState,
   selectedImageState,
 } from "../atoms";
-import { OverlayStrategyName } from "../types";
+import { OverlayStrategies, OverlayStrategyName } from "../types";
 import { WithWindowSize } from "./projectors/WithWindowSize";
-import { YouTubeIframeApi, YouTubePlayerContainer } from "./projectors/YouTubeEmbed";
+import {
+  YouTubeIframeApi,
+  YouTubePlayerContainer,
+} from "./projectors/YouTubeEmbed";
 
 export const Projector: React.FC<{}> = () => {
   return (
@@ -37,6 +40,10 @@ const OverlayForStrategyName: React.FC<{
       return null;
     case "youtubeEmbed":
       return <YouTubePlayerContainer state={overlayState.youtubeEmbed.state} />;
+    case "arbitaryIframe":
+      return (
+        <ArbitaryIframeOverlay state={overlayState.arbitaryIframe.state} />
+      );
   }
 };
 
@@ -54,4 +61,17 @@ const Overlay: React.FC<{}> = () => {
       <OverlayForStrategyName overlayStrategyName={activeOverlayStrategyName} />
     </div>
   );
+};
+
+const ArbitaryIframeOverlay: React.FC<{
+  state: OverlayStrategies["arbitaryIframe"]["state"];
+}> = ({ state: { iframeSrc } }) => {
+  return iframeSrc ? (
+    <iframe
+      src={iframeSrc}
+      title="arbitary embedded iframe"
+      className="arena__overlay__arbitary-iframe"
+      sandbox="allow-scripts"
+    ></iframe>
+  ) : null;
 };
