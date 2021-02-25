@@ -269,23 +269,23 @@ details summary {
   }
 }
 
+a {
+  color: var(--active-component-keyColor);
+  padding: 0.3em;
+  border-radius: 0.2em;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
 .youtube-overlay {
   .youtube-overlay__current-state {
     .youtube-overlay__getset {
       margin-top: 0.4em;
       line-height: 1.2em;
-
-      a {
-        color: var(--active-component-keyColor);
-        padding: 0.3em;
-        border-radius: 0.2em;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-          background: rgba(255, 255, 255, 0.2);
-        }
-      }
     }
 
     .youtube-overlay__thumbnail {
@@ -298,7 +298,6 @@ details summary {
     }
   }
 }
-
 
 .arbitary-iframe-overlay {
   .arbitary-iframe-overlay__getset {
@@ -385,7 +384,7 @@ details summary {
 
   &.sync-indicator__disconnected {
     border-color: rgb(255, 50, 35);
-    animation: disconnectedIndicator .6s ease 0s infinite;
+    animation: disconnectedIndicator 0.6s ease 0s infinite;
     @keyframes disconnectedIndicator {
       0% {
         border-color: rgb(255, 50, 35);

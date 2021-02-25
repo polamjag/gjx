@@ -64,7 +64,7 @@ export const IframeSetter: React.FC<{}> = () => {
       </button>
       {state.iframeSrc && (
         <div className="arbitary-iframe-overlay__getset">
-          Ready:{" "}
+          Ready:
           <a href={state.iframeSrc} target="_blank" rel="noopener noreferrer">
             {state.iframeSrc}
           </a>{" "}
