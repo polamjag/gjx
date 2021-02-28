@@ -65,10 +65,10 @@ const Overlay: React.FC<{}> = () => {
 
 const ArbitaryIframeOverlay: React.FC<{
   state: OverlayStrategies["arbitaryIframe"]["state"];
-}> = ({ state: { iframeSrc } }) => {
-  return iframeSrc ? (
+}> = ({ state }) => {
+  return state?.iframeSrc ? (
     <iframe
-      src={iframeSrc}
+      src={state.iframeSrc}
       title="arbitary embedded iframe"
       className="arena__overlay__arbitary-iframe"
       sandbox="allow-scripts"
