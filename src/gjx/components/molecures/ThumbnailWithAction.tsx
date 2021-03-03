@@ -6,7 +6,11 @@ interface Props {
   onClickButton: () => void;
 }
 
-export const ThumbnailWithAction: React.FC<Props> = ({thumbnailUrl, buttonLabel, onClickButton}) => {
+export const ThumbnailWithAction: React.FC<Props> = ({
+  thumbnailUrl,
+  buttonLabel,
+  onClickButton,
+}) => {
   return (
     <div className="thumbnail-with-action">
       <img src={thumbnailUrl} alt="" />
@@ -14,5 +18,5 @@ export const ThumbnailWithAction: React.FC<Props> = ({thumbnailUrl, buttonLabel,
         {buttonLabel}
       </button>
     </div>
-  )
-}
+  );
+};

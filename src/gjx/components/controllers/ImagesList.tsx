@@ -22,7 +22,7 @@ export const ImagesList: React.FC<{}> = () => {
     <>
       <ul className="images-list">
         {Object.entries(images).map(([id, image]) => (
-          <li key={id} className={selectedImage === image ? 'selected' : ''}>
+          <li key={id} className={selectedImage === image ? "selected" : ""}>
             <ThumbnailWithAction
               thumbnailUrl={image}
               buttonLabel="x"

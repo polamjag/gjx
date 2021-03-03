@@ -132,7 +132,7 @@ const TapToBPM: React.FC<{ setIntervalMs: (interval: number) => void }> = ({
 
     const bpm = calculateBPM(timestamps);
     if (tappedTimestamps.length > 0) {
-      setBPM(bpm)
+      setBPM(bpm);
     }
     if (tappedTimestamps.length > 4) {
       setIntervalMs(calculateBeatIntervalMsFromBPM(bpm));

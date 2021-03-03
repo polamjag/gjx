@@ -3,7 +3,7 @@ import "./index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { RoutedApp } from './RoutedApp';
+import { RoutedApp } from "./RoutedApp";
 import reportWebVitals from "./reportWebVitals";
 
 (async () => {

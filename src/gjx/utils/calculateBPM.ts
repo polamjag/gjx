@@ -1,6 +1,6 @@
 export const calculateBPMFromBeatInterval = (intervalMs: number): number => {
-  return 60 / (intervalMs / 1000)
-}
+  return 60 / (intervalMs / 1000);
+};
 
 export const calculateBPM = (timestamps: number[]): number => {
   let totalDiffs = 0;
@@ -12,5 +12,5 @@ export const calculateBPM = (timestamps: number[]): number => {
 };
 
 export const calculateBeatIntervalMsFromBPM = (bpm: number): number => {
-  return (60 / bpm) * 1000
-}
+  return (60 / bpm) * 1000;
+};

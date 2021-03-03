@@ -12,8 +12,8 @@ const strategies: Array<{ name: OverlayStrategyName; label: string }> = [
   },
   {
     name: "arbitaryIframe",
-    label: "🌏 <iframe>"
-  }
+    label: "🌏 <iframe>",
+  },
 ];
 
 export const OverlayStrategySelector: React.FC<{}> = () => {
