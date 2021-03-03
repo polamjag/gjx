@@ -86,10 +86,13 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
 
     const infoRef = firebase?.database().ref(".info/");
     infoRef?.on("value", function (snap) {
-      const { serverTimeOffset, connected }: {
+      const {
+        serverTimeOffset,
+        connected,
+      }: {
         serverTimeOffset: number;
         connected: boolean;
-      } = snap.val() 
+      } = snap.val();
 
       setRealtimeSyncMetaState((old) => ({
         ...old,
