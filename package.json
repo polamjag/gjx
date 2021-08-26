@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
-    "@types/recoil": "^0.0.1",
+    "@types/recoil": "^0.0.9",
     "@types/youtube": "^0.0.41",
     "firebase-tools": "^9.16.6",
     "prettier": "^2.2.1"
