@@ -1,5 +1,4 @@
-import firebase from "firebase/app";
-import "firebase/database";
+import { initializeApp } from "firebase/app";
 
 import React, { createContext, useEffect, useState } from "react";
 
@@ -7,12 +6,12 @@ export const WithFirebase: React.FC<{ firebaseConfig: Object }> = ({
   firebaseConfig,
   children,
 }) => {
-  const [firebaseApp, setFirebaseApp] = useState<undefined | firebase.app.App>(
+  const [firebaseApp, setFirebaseApp] = useState<undefined | ReturnType<typeof initializeApp>>(
     undefined
   );
   useEffect(() => {
     if (!firebaseApp) {
-      setFirebaseApp(firebase.initializeApp(firebaseConfig));
+      setFirebaseApp(initializeApp(firebaseConfig));
     }
   }, [firebaseApp, firebaseConfig]);
 
@@ -24,5 +23,5 @@ export const WithFirebase: React.FC<{ firebaseConfig: Object }> = ({
 };
 
 export const FirebaseContext = createContext<
-  ReturnType<typeof firebase.initializeApp> | undefined
+  ReturnType<typeof initializeApp> | undefined
 >(undefined);

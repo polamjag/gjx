@@ -1,3 +1,11 @@
+import {
+  getDatabase,
+  ref,
+  get,
+  off,
+  set,
+  onValue,
+} from "firebase/database";
 import React, { useContext, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
@@ -18,9 +26,10 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
       return;
     }
 
-    const fbRef = firebase.database().ref(rtdbKey);
-    fbRef
-      .get()
+    const db = getDatabase(firebase);
+    const fbRef = ref(db, rtdbKey);
+
+    get(fbRef)
       .then((snapshot) => {
         const data = snapshot.exportVal() || {};
 
@@ -44,7 +53,7 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
       });
 
     return () => {
-      fbRef.off();
+      off(fbRef);
     };
   }, [firebase, setAppState, setRealtimeSyncMetaState, rtdbKey]);
 
@@ -53,10 +62,10 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
       return;
     }
 
+    const db = getDatabase(firebase);
+
     if (realtimeSyncMeta.canSendStateToRemote) {
-      firebase?.database().ref(rtdbKey).set({
-        appState,
-      });
+      set(ref(db, rtdbKey), { appState });
     }
   }, [firebase, appState, realtimeSyncMeta, rtdbKey]);
 
@@ -65,8 +74,9 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
       return;
     }
 
-    const syncRef = firebase?.database().ref(rtdbKey);
-    syncRef?.on("value", (snapshot) => {
+    const db = getDatabase(firebase);
+
+    const unsubSync = onValue(ref(db, rtdbKey), (snapshot) => {
       const data = snapshot.val();
       if (!data) {
         return;
@@ -84,8 +94,7 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
       }));
     });
 
-    const infoRef = firebase?.database().ref(".info/");
-    infoRef?.on("value", function (snap) {
+    const unsubInfo = onValue(ref(db, ".info/"), (snap) => {
       const {
         serverTimeOffset,
         connected,
@@ -102,8 +111,8 @@ export const RealtimeSynchronizer: React.FC<{ rtdbKey: string }> = ({
     });
 
     return () => {
-      syncRef?.off();
-      infoRef?.off();
+      unsubSync();
+      unsubInfo();
     };
   }, [
     firebase,
