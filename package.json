@@ -7,7 +7,7 @@
     "@testing-library/react": "12.0.0",
     "@testing-library/user-event": "13.2.1",
     "@types/jest": "27.0.1",
-    "@types/node": "14.14.31",
+    "@types/node": "16.7.2",
     "@types/react": "17.0.19",
     "@types/react-dom": "17.0.9",
     "firebase": "9.0.0",
@@ -46,10 +46,10 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.7",
+    "@types/react-router-dom": "^5.1.8",
     "@types/recoil": "^0.0.9",
-    "@types/youtube": "^0.0.41",
+    "@types/youtube": "^0.0.45",
     "firebase-tools": "^9.16.6",
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.2"
   }
 }
