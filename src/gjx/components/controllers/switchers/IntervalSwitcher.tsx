@@ -96,8 +96,8 @@ export const IntervalSwitcher: React.FC<{}> = () => {
         step={1}
         onChange={onChange}
       />
-      <span className="switcher__interval__value-label">
-        {state.intervalMs.toFixed(2)}ms (≈ BPM{" "}
+      <span className="switcher__interval__value-label tabular-nums">
+        {state.intervalMs.toFixed(0)}ms (≈ BPM{" "}
         {calculateBPMFromBeatInterval(state.intervalMs).toFixed(2)})
       </span>
       <button onClick={onClick2x}>x 2</button>

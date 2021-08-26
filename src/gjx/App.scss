@@ -14,6 +14,10 @@ code {
   font-family: ".SF Mono", Menlo, Consolas;
 }
 
+.tabular-nums {
+  font-variant: tabular-nums;
+}
+
 input:disabled,
 button:disabled {
   cursor: not-allowed;
