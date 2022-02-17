@@ -1,7 +1,7 @@
 import "./Home.scss";
 
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import logo from "./GJXLogo.svg";
 
@@ -20,10 +20,10 @@ export const Home: React.FC<{}> = () => {
     setApiKey(value);
   };
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleStartSession = () => {
-    history.push(`/sessions/${projectId}/${apiKey}`);
+    navigate(`/sessions/${projectId}/${apiKey}`);
   };
 
   return (
